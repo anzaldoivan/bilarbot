@@ -1,0 +1,84 @@
+[
+    [
+        [
+            "CAS",
+            "XSN"
+        ],
+        [
+            "CCFC",
+            "UDE"
+        ]
+    ],
+    [
+        [
+            "XSN",
+            "CAS"
+        ],
+        [
+            "UDE",
+            "CCFC"
+        ]
+    ],
+    [
+        [
+            "BV",
+            "CAS"
+        ],
+        [
+            "PH",
+            "MG"
+        ],
+        [
+            "PEAKY",
+            "UDE"
+        ],
+        [
+            "LCB",
+            "GB"
+        ]
+    ],
+    [
+        [
+            "CAS",
+            "BV"
+        ],
+        [
+            "MG",
+            "PH"
+        ],
+        [
+            "UDE",
+            "PEAKY"
+        ],
+        [
+            "GB",
+            "LCB"
+        ]
+    ],
+    [
+        [
+            "Semis A",
+            "Semis B"
+        ],
+        [
+            "Semis C",
+            "Semis D"
+        ]
+    ],
+    [
+        [
+            "Semis B",
+            "Semis A"
+        ],
+        [
+            "Semis D",
+            "Semis C"
+        ]
+    ],
+    [
+        [
+            "Final A",
+            "Final B"
+        ]
+    ]
+]

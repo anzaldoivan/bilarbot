@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "bignumber.js": "^9.0.1",
+    "decache": "^4.6.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.2.0",
+    "express": "^4.17.1",
+    "img-color": "^1.0.2",
+    "luxon": "^2.0.2",
+    "rcon-srcds": "^2.0.1",
+    "srcds-rcon": "^2.2.1",
+    "wilson-score-rank": "^2.0.1"
+  }
+}

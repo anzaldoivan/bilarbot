@@ -12,5 +12,8 @@
     "rcon-srcds": "^2.0.1",
     "srcds-rcon": "^2.2.1",
     "wilson-score-rank": "^2.0.1"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }

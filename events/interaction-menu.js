@@ -137,25 +137,34 @@ module.exports = {
             .get("479442064971661312")
             .send({ embeds: [matchesEmbed] });
 
-          return interaction.member.send(
-            `Confirmado el partido correctamente.`
-          );
+          return interaction.member
+            .send(`Confirmado el partido correctamente.`)
+            .catch((error) => {
+              console.log(`User has blocked DM`);
+            });
         } else {
-          return interaction.member.send(
-            `No puedes confirmar el partido de otros equipos.`
-          );
+          return interaction.member
+            .send(`No puedes confirmar el partido de otros equipos.`)
+            .catch((error) => {
+              console.log(`User ${newPresence.user.id} has blocked DM`);
+            });
         }
       } else {
-        return interaction.member.send(
-          `Solo los capitanes pueden confirmar partidos.`
-        );
+        return interaction.member
+          .send(`Solo los capitanes pueden confirmar partidos.`)
+          .catch((error) => {
+            console.log(`User ${newPresence.user.id} has blocked DM`);
+          });
       }
     }
     if (interaction.customId == "postergar") {
       captainSplit = interaction.values[0].split("/");
 
       await interaction.deferUpdate();
-      if (member.roles.cache.has("458075157253062657")) {
+      if (
+        member.roles.cache.has("458075157253062657") ||
+        member.roles.cache.has("905584692588314675")
+      ) {
         console.log(captainSplit[5]);
         team = captainSplit[5];
         otherteam = captainSplit[6];
@@ -180,18 +189,25 @@ module.exports = {
               }
             }
           );
-          return interaction.member.send(
-            `Postergado el partido correctamente.`
-          );
+          interaction.deleteReply();
+          return interaction.member
+            .send(`Postergado el partido correctamente.`)
+            .catch((error) => {
+              console.log(`User ${newPresence.user.id} has blocked DM`);
+            });
         } else {
-          return interaction.member.send(
-            `No puedes postergar el partido de otros equipos.`
-          );
+          return interaction.member
+            .send(`No puedes postergar el partido de otros equipos.`)
+            .catch((error) => {
+              console.log(`User ${newPresence.user.id} has blocked DM`);
+            });
         }
       } else {
-        return interaction.member.send(
-          `Solo los capitanes pueden confirmar partidos.`
-        );
+        return interaction.member
+          .send(`Solo los capitanes pueden confirmar partidos.`)
+          .catch((error) => {
+            console.log(`User ${newPresence.user.id} has blocked DM`);
+          });
       }
     }
   },

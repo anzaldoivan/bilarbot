@@ -18,10 +18,10 @@ module.exports = {
     const now = DateTime.now();
     const diff = Interval.fromDateTimes(before, now);
     const diffMinutes = Math.abs(diff.length("minutes"));
-    console.log(before);
-    console.log(`Minutes difference: ${Number(diffMinutes)}`);
+    //console.log(before);
+    //console.log(`Minutes difference: ${Number(diffMinutes)}`);
     if (diffMinutes >= 10) {
-      console.log(client.config.elo.here);
+      //console.log(client.config.elo.here);
       client.config.elo.here = DateTime.now();
       fs.writeFileSync(
         `./Config/config.json`,
@@ -32,7 +32,8 @@ module.exports = {
           }
         }
       );
-      interaction.followUp("@here");
+      client.channels.cache.get(client.config.mm_channel).send("@here");
+      interaction.deleteReply();
       return;
     }
     interaction.followUp(

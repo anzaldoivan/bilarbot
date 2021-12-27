@@ -57,28 +57,28 @@
     ],
     [
         [
-            "Semis A",
+            "CAS",
             "Semis B"
         ],
         [
-            "Semis C",
-            "Semis D"
+            "UDE",
+            "LCB"
         ]
     ],
     [
         [
             "Semis B",
-            "Semis A"
+            "CAS"
         ],
         [
-            "Semis D",
-            "Semis C"
+            "LCB",
+            "UDE"
         ]
     ],
     [
         [
             "Final A",
-            "Final B"
+            "UDE"
         ]
     ]
 ]

@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 const decache = require("decache");
 
-function privateMessage(client) {
+function privateMessage(client, serverport, matchID) {
   embed = new Discord.MessageEmbed();
-  let privmessage = `:soccer: Ha comenzado el Matchmaking! Debes conectarte al servidor utilizando ' connect ${client.config.serverip}:${client.config.eloPort};password orangutan ' en consola durante los proximos 10 minutos!`;
+  let privmessage = `:soccer: Ha comenzado el Matchmaking #${matchID}! Debes conectarte al servidor utilizando el siguiente enlace: steam://connect/${client.config.serverip}:${serverport}/elomatch`;
   decache("../elo/matchplayers.json");
   const matchplayers = require(`../elo/matchplayers.json`);
   matchplayers.forEach((element) => {

@@ -45,11 +45,11 @@ function unsign(user, client, mode) {
     }
   }
 
-  console.log(user.replace(/[^0-9\.]+/g, ""));
+  //console.log(user.replace(/[^0-9\.]+/g, ""));
   duoRooms.forEach((element) => {
-    console.log(element.players);
+    //console.log(element.players);
     if (element.players.includes(user.replace(/[^0-9\.]+/g, ""))) {
-      console.log("Encontrado en otra sala!");
+      //console.log("Encontrado en otra sala!");
       if (mode == "MANUAL")
         client.users.cache
           .get(element.players[0])
@@ -67,7 +67,7 @@ function unsign(user, client, mode) {
             });
         duoRooms.splice(duoRooms.indexOf(element), 1);
       } catch {
-        console.log("Second user did not exist");
+        //console.log("Second user did not exist");
       }
     }
   });

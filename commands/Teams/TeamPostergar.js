@@ -52,28 +52,12 @@ module.exports = {
         .setName("team")
         .setDescription("Elija el equipo rival.")
         .setRequired(true)
-        .addChoice("Academia Shelby", "PEAKY")
-        .addChoice("Bravona", "BV")
-        .addChoice("Bravona Reserva", "BVR")
         .addChoice("Club Atletico Soccerjam", "CAS")
-        .addChoice("Coldchester United", "CCFC")
-        .addChoice("Coldchester U-18", "CU")
-        .addChoice("Deportivo Moron", "CDM")
-        .addChoice("Galactic Boys", "GB")
-        .addChoice("Galactic Boys Academy", "GBA")
-        .addChoice("Central Cordoba", "IACC")
-        .addChoice("La Realeza", "LR")
         .addChoice("Lobos FC", "LFC")
-        .addChoice("Los Caballeros de la Birra", "LCB")
-        .addChoice("Los Escuderos de la Birra", "LEB")
         .addChoice("Meteors Gaming", "MG")
-        .addChoice("Penañol", "PEÑ")
         .addChoice("Puro Humo", "PH")
         .addChoice("Union Deportivo Empate", "UDE")
         .addChoice("Union Deportivo Empate Reserva", "UDER")
-        .addChoice("X-Squadron", "XSN")
-        .addChoice("X-Squadron Reserva", "XSNR")
-        .addChoice("We Make Magic", "WMM")
         .addChoice("TEST", "TEST")
     ),
   // .addIntegerOption((option) =>
@@ -120,7 +104,7 @@ module.exports = {
             label: `Postergar partido`,
             description:
               "Postergar el partido. Ignorar el mensaje para no confirmarlo.",
-            value: `${messages[otherteam][week].captain}/${messages[otherteam][week].subcaptain}/${messages[team].fullname}/${messages[otherteam].fullname}/${messages[otherteam][week].director}/${team}/${otherteam}/${week}`,
+            value: `${messages[otherteam][week].captain}/${messages[otherteam][week].subcaptain}/${team}/${otherteam}/${messages[otherteam][week].director}/${team}/${otherteam}/${week}`,
           },
         ])
     );

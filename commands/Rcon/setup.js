@@ -23,7 +23,7 @@ module.exports = {
         .addChoice("Copa Valen (Ida)", "ida")
         .addChoice("Copa Valen (Vuelta)", "vuelta")
     ),
-  permission: "485322687682445345",
+  permission: ["485322687682445345"],
   channel: ["479442064971661312", "457737569954824192"],
   async execute(interaction, client) {
     const config = client.config;

@@ -67,20 +67,21 @@ module.exports = {
     //console.log(duoID);
     //console.log(duoRooms);
 
-    if (
-      !messages[interaction.member.user.id] ||
-      messages[interaction.member.user.id].ELO === 0
-    ) {
-      client.users.cache
-        .get(interaction.member.user.id)
-        .send(
-          "No puedes unirte a la lista si no estas registrado. Utiliza el comando /register "
-        )
-        .catch((error) => {
-          console.log(`User ${interaction.member.user.id} has blocked DM`);
-        });
-      interaction.deleteReply();
-      return;
+    if (!messages[interaction.member.user.id]) {
+      messages[interaction.member.user.id] = {
+        user: interaction.member.user.id,
+        nick: interaction.guild.members.cache.get(interaction.member.user.id)
+          .displayName,
+        ping: `<@${interaction.member.user.id}>`,
+        steam: "Sin registrar",
+        ELO: 0,
+        ELOGK: 0,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        lastMatch: 0,
+        country: "Sin definir",
+      };
     }
 
     let bool = await isPlaying.isPlaying(interaction);
@@ -152,6 +153,16 @@ module.exports = {
         interaction.followUp(err);
       }
     });
+    fs.writeFileSync(
+      `./Users/185191450013597696.json`,
+      JSON.stringify(messages),
+      (err) => {
+        if (err) {
+          console.log(err);
+          client.channels.cache.get(client.config.mm_channel).send(err);
+        }
+      }
+    );
     //console.log(pos);
     embed = await package.signedList(client.config, interaction);
     client.channels.cache

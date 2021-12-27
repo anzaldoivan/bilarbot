@@ -9,9 +9,9 @@ const funcDate = require("../../utils/getFecha.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("aumentarliberaciones")
+    .setName("postergarmanual")
     .setDescription(
-      "Aumentar liberaciones de un equipo. Comando solo disponible para presidentes del Tribunal."
+      "Agregar postergaciones a un equipo. Comando solo disponible para presidentes del Tribunal."
     )
     .addStringOption((option) =>
       option
@@ -51,7 +51,7 @@ module.exports = {
     let week = funcDate.getFecha(messages, team);
     const messageAuthor = interaction.member.user.id;
 
-    messages[team.toUpperCase()][week].releases += 1;
+    messages[team.toUpperCase()][week].postponement -= 1;
 
     fs.writeFileSync(
       "./Teams/185191450013597696.json",
@@ -67,7 +67,7 @@ module.exports = {
     client.channels.cache
       .get("902547421962334219")
       .send(
-        `El representante del Tribunal de Disciplina <@${messageAuthor}> ha aumentado las liberaciones de ${
+        `El representante del Tribunal de Disciplina <@${messageAuthor}> ha disminuido las postergaciones de ${
           messages[team.toUpperCase()].fullname
         }`
       );

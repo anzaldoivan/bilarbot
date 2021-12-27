@@ -18,7 +18,7 @@ module.exports = {
         .addChoice("Servidor de Oficiales #1 (27018)", "27018")
         .addChoice("Servidor de Oficiales #2 (27019)", "27019")
     ),
-  permission: "485322687682445345",
+  permission: ["485322687682445345"],
   channel: ["479442064971661312", "457737569954824192"],
   async execute(interaction, client) {
     const config = client.config;

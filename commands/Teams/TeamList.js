@@ -17,10 +17,13 @@ module.exports = {
     .setDescription("Ver lista de Equipos para la T8"),
   async execute(interaction) {
     decache("../../Teams/185191450013597696.json");
+    decache("../../Teams/verano2022.json");
     const messages = require(`../../Teams/185191450013597696.json`);
+    const teamsverano = require(`../../Teams/verano2022.json`);
 
     let stringAmateur = "";
     let stringProfesional = "";
+    let stringVerano = "";
 
     embed = new Discord.MessageEmbed()
       .setTitle(`Lista de Equipos T8`)
@@ -35,9 +38,18 @@ module.exports = {
       }
     }
 
+    for (var key in teamsverano) {
+      if (teamsverano.hasOwnProperty(key)) {
+        var val = teamsverano[key];
+        stringVerano += `${val.fullname}\n`;
+      }
+    }
+
     embed.addField("Torneo Profesional", `${stringProfesional}`);
 
     embed.addField("Torneo Amateur", `${stringAmateur}`);
+
+    embed.addField("Torneo Verano 2022", `${stringVerano}`);
 
     interaction.followUp({ embeds: [embed] });
   },

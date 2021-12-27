@@ -13,11 +13,9 @@ module.exports = {
 
     try {
       if (command.permission) {
-        const authorPerms = interaction.channel.permissionsFor(
-          interaction.member
-        );
         const userRoles = interaction.member._roles;
-        if (!authorPerms || !userRoles.includes(command.permission)) {
+
+        if (!command.permission.some((item) => userRoles.includes(item))) {
           console.log(`Permissions not found`);
           const Error1 = new Discord.MessageEmbed()
             .setColor("RED")
@@ -34,7 +32,7 @@ module.exports = {
         }
       }
       if (command.channel) {
-        console.log(interaction.channelId);
+        //console.log(interaction.channelId);
         const interactionChannel = interaction.channelId;
         if (!command.channel.includes(interactionChannel)) {
           console.log(`Channel is incorrect`);

@@ -15,7 +15,7 @@ module.exports = {
         .addChoice("Copa Valen", "valen")
         .addChoice("Copa Amateur", "amateur")
     ),
-  permission: "188714975244582913",
+  permission: ["188714975244582913"],
   channel: ["460972681076932613", "904808330076254238"],
   async execute(interaction) {
     const format = interaction.options.getString("competencia");

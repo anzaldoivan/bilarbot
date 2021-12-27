@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("arbitraje")
     .setDescription("Comandos basicos para poder arbitrar un partido"),
-  permission: "485322687682445345",
+  permission: ["485322687682445345"],
   channel: ["479442064971661312"],
   async execute(interaction) {
     embed = new Discord.MessageEmbed()

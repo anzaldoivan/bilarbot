@@ -97,7 +97,7 @@ module.exports = {
       //console.log(playerlist.Team1.list);
       //console.log(playerlist.Team2.list);
 
-      funcPrivate.privateMessage(client);
+      funcPrivate.privateMessage(client, serverport, matchID);
       funcRemove.removeSigned(client);
     } else {
       interaction.followUp(

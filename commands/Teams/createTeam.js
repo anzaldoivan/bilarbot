@@ -15,8 +15,7 @@ module.exports = {
         .setName("torneo")
         .setDescription("Elija el torneo donde se quiere inscribir.")
         .setRequired(true)
-        .addChoice("Torneo Profesional", "profesional")
-        .addChoice("Torneo Amateur", "amateur")
+        .addChoice("Torneo Verano 2022", "verano2022")
     )
     .addStringOption((option) =>
       option
@@ -77,12 +76,30 @@ module.exports = {
         .setName("jugador6")
         .setDescription("Mencione al sexto jugador de su equipo.")
         .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("jugador7")
+        .setDescription("Mencione al septimo jugador de su equipo.")
+        .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("jugador8")
+        .setDescription("Mencione al octavo jugador de su equipo.")
+        .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("jugador9")
+        .setDescription("Mencione al noveno jugador de su equipo.")
+        .setRequired(true)
     ),
-  permission: "458075157253062657",
+  permission: ["458075157253062657"],
   channel: ["866700554293346314"],
   async execute(interaction, client) {
-    const messages = require(`../../Teams/185191450013597696.json`);
     const torneo = interaction.options.getString("torneo");
+    const messages = require(`../../Teams/${torneo}.json`);
     const fullname = interaction.options.getString("nombre");
     const teamname = interaction.options.getString("iniciales").toUpperCase();
     const director = interaction.options
@@ -103,6 +120,18 @@ module.exports = {
       .replace(/[^0-9\.]+/g, "");
     const jugador6 = interaction.options
       .getUser("jugador6")
+      .toString()
+      .replace(/[^0-9\.]+/g, "");
+    const jugador7 = interaction.options
+      .getUser("jugador7")
+      .toString()
+      .replace(/[^0-9\.]+/g, "");
+    const jugador8 = interaction.options
+      .getUser("jugador8")
+      .toString()
+      .replace(/[^0-9\.]+/g, "");
+    const jugador9 = interaction.options
+      .getUser("jugador9")
       .toString()
       .replace(/[^0-9\.]+/g, "");
     let capitan = interaction.options
@@ -160,6 +189,24 @@ module.exports = {
           );
           return;
         }
+        if (messages[key][currentFechaID].players.includes(jugador7)) {
+          interaction.followUp(
+            `El jugador <@${jugador7}> ya pertenece a otro equipo.`
+          );
+          return;
+        }
+        if (messages[key][currentFechaID].players.includes(jugador8)) {
+          interaction.followUp(
+            `El jugador <@${jugador8}> ya pertenece a otro equipo.`
+          );
+          return;
+        }
+        if (messages[key][currentFechaID].players.includes(jugador9)) {
+          interaction.followUp(
+            `El jugador <@${jugador9}> ya pertenece a otro equipo.`
+          );
+          return;
+        }
       }
     }
 
@@ -178,6 +225,9 @@ module.exports = {
           jugador4.toString(),
           jugador5.toString(),
           jugador6.toString(),
+          jugador7.toString(),
+          jugador8.toString(),
+          jugador9.toString(),
         ],
         playerscount: 2,
         postponement: 3,
@@ -207,9 +257,12 @@ module.exports = {
     manageNicks.manageNicks(client, interaction, jugador4, teamname, "fichar");
     manageNicks.manageNicks(client, interaction, jugador5, teamname, "fichar");
     manageNicks.manageNicks(client, interaction, jugador6, teamname, "fichar");
+    manageNicks.manageNicks(client, interaction, jugador7, teamname, "fichar");
+    manageNicks.manageNicks(client, interaction, jugador8, teamname, "fichar");
+    manageNicks.manageNicks(client, interaction, jugador9, teamname, "fichar");
 
     fs.writeFileSync(
-      `./Teams/185191450013597696.json`,
+      `./Teams/${torneo}.json`,
       JSON.stringify(messages),
       (err) => {
         if (err) {
@@ -220,6 +273,11 @@ module.exports = {
     );
 
     funcTeam.getTeam(messages, teamname, "0", interaction);
+    client.channels.cache
+      .get("902547421962334219")
+      .send(
+        `El equipo ${fullname} se ha inscrito correctamente al Torneo ${torneo}.`
+      );
 
     //await interaction.followUp(message);
   },

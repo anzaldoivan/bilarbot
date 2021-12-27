@@ -6,6 +6,9 @@ const Discord = require("discord.js");
 const decache = require("decache");
 
 async function eloPost(req, res, config, client) {
+  console.log(req.ip);
+  console.log(config.serverip);
+  console.log(config.elo.token);
   if (req.ip != config.serverip || req.ip != config.serverip) {
     res.end("Incorrect Token");
     console.log(req.ip);

@@ -3,7 +3,7 @@ const { DateTime } = require("luxon");
 const bignumber = require("bignumber.js");
 const decache = require("decache");
 
-function createTeamList(fecha, team) {
+function createTeamList(fecha, team, interaction) {
   if (!messages[team.toUpperCase()][fecha - 1]) {
     interaction.followUp(
       `No se ha encontrado la planilla para la semana ${week}.`
@@ -21,6 +21,10 @@ function createTeamList(fecha, team) {
 }
 
 async function getTeam(messages, team, week, interaction) {
+  if (!messages[team.toUpperCase()]) {
+    interaction.followUp("Equipo no encontrado.");
+    return;
+  }
   decache("../Users/185191450013597696.json");
   let currentFechaID = Math.round(
     DateTime.now().diff(DateTime.local(2021, 10, 25), "weeks").weeks
@@ -162,6 +166,7 @@ async function getTeam(messages, team, week, interaction) {
     }
   } catch (error) {
     console.error(error);
+    getTeam(messages, team, 0, interaction);
   }
 }
 

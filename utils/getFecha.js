@@ -1,7 +1,7 @@
 const funcDate = require("./getDate.js");
 const funcCreate = require("./createTeam.js");
 
-function getFecha(messages, team) {
+function getFecha(messages, team, interaction) {
   let fechaProfesional = funcDate.getDate("2021-10-26");
   let fechaAmateur = funcDate.getDate("2021-11-02");
   let currentFechaID;

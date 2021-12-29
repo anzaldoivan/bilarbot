@@ -32,8 +32,9 @@ module.exports = {
     for (var key in messages) {
       if (messages.hasOwnProperty(key)) {
         var val = messages[key];
-        if (val.torneo == "amateur") stringAmateur += `${val.fullname}\n`;
-        if (val.torneo == "profesional")
+        if (val.torneo == "amateur" && val.fullname != "TEST")
+          stringAmateur += `${val.fullname}\n`;
+        if (val.torneo == "profesional" && val.fullname != "TEST")
           stringProfesional += `${val.fullname}\n`;
       }
     }
@@ -41,7 +42,7 @@ module.exports = {
     for (var key in teamsverano) {
       if (teamsverano.hasOwnProperty(key)) {
         var val = teamsverano[key];
-        stringVerano += `${val.fullname}\n`;
+        if (val.fullname != "TEST") stringVerano += `${val.fullname}\n`;
       }
     }
 

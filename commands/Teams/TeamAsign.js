@@ -17,11 +17,8 @@ module.exports = {
         .setDescription("Elija el Equipo.")
         .setRequired(true)
         .addChoice("Club Atletico Soccerjam", "CAS")
-        .addChoice("Lobos FC", "LFC")
         .addChoice("Meteors Gaming", "MG")
-        .addChoice("Puro Humo", "PH")
         .addChoice("Union Deportivo Empate", "UDE")
-        .addChoice("Union Deportivo Empate Reserva", "UDER")
         .addChoice("TEST", "TEST")
     )
     .addStringOption((option) =>

@@ -15,8 +15,6 @@
     "express": "^4.17.1",
     "img-color": "^1.0.2",
     "luxon": "^2.0.2",
-    "rcon-srcds": "^2.0.1",
-    "srcds-rcon": "^2.2.1",
     "wilson-score-rank": "^2.0.1"
   },
   "scripts": {

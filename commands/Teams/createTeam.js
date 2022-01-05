@@ -12,13 +12,6 @@ module.exports = {
     .setDescription("Inscribir equipo.")
     .addStringOption((option) =>
       option
-        .setName("torneo")
-        .setDescription("Elija el torneo donde se quiere inscribir.")
-        .setRequired(true)
-        .addChoice("Torneo Verano 2022", "verano2022")
-    )
-    .addStringOption((option) =>
-      option
         .setName("nombre")
         .setDescription("Elija el nombre completo del equipo.")
         .setRequired(true)
@@ -98,7 +91,8 @@ module.exports = {
   permission: ["458075157253062657"],
   channel: ["866700554293346314"],
   async execute(interaction, client) {
-    const torneo = interaction.options.getString("torneo");
+    const torneo = client.config.tournament.name;
+    decache(`../../Teams/${torneo}.json`);
     const messages = require(`../../Teams/${torneo}.json`);
     const fullname = interaction.options.getString("nombre");
     const teamname = interaction.options.getString("iniciales").toUpperCase();
@@ -229,7 +223,7 @@ module.exports = {
           jugador8.toString(),
           jugador9.toString(),
         ],
-        playerscount: 2,
+        playerscount: 9,
         postponement: 3,
         releases: 100,
         subcaptain: subcapitan.toString(),
@@ -241,9 +235,7 @@ module.exports = {
       torneo: torneo,
     };
 
-    interaction.followUp(
-      `Se ha creado el equipo correctamente! Recuerde que debe esperar a que se agregue en la base de datos para utilizar los comandos de fichajes.`
-    );
+    interaction.followUp(`Se ha creado el equipo correctamente!`);
 
     manageNicks.manageNicks(client, interaction, capitan, teamname, "fichar");
     manageNicks.manageNicks(
@@ -272,13 +264,15 @@ module.exports = {
       }
     );
 
-    funcTeam.getTeam(messages, teamname, "0", interaction);
+    funcTeam.getTeam(messages, teamname, "0", interaction, client.config);
     client.channels.cache
       .get("902547421962334219")
       .send(
         `El equipo ${fullname} se ha inscrito correctamente al Torneo ${torneo}.`
       );
 
+    const commandFolders = fs.readdirSync("./commands");
+    client.handleCommands(commandFolders, "./commands");
     //await interaction.followUp(message);
   },
 };

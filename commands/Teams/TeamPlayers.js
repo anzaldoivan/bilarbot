@@ -15,33 +15,21 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("plantel")
     .setDescription("Plantel del equipo seleccionado")
-    .addStringOption((option) =>
-      option
-        .setName("torneo")
-        .setDescription("Elija el torneo.")
-        .setRequired(true)
-        .addChoice("Temporada 8", "T8")
-        .addChoice("Copa de Verano", "verano2022")
-    )
-    .addStringOption((option) =>
+    .addStringOption((option) => {
       option
         .setName("team")
         .setDescription("Elija el Equipo.")
-        .setRequired(true)
-        .addChoice("Club Atletico Soccerjam", "CAS")
-        .addChoice("Meteors Gaming", "MG")
-        .addChoice("Union Deportivo Empate", "UDE")
-        .addChoice("TEST", "TEST")
-        .addChoice("Alien Express", "AX")
-        .addChoice("Club Atlético Cualidachi Fútbol Clube", "CACFC")
-        .addChoice("Deportivo Campesinos Club", "DCC")
-        .addChoice("FENIX FUTBOL CLUB", "FFC")
-        .addChoice("Soccer Street FC", "SSFC")
-        .addChoice("The Leopardos Club", "TLC")
-        .addChoice("Tormalina FC", "TOR")
-        .addChoice("We Make Magic", "WMM")
-        .addChoice("ZeuzzFC", "ZEUS")
-    )
+        .setRequired(true);
+      const teamsOptions = require(`../../Teams/verano2022.json`);
+      for (var key in teamsOptions) {
+        if (teamsOptions.hasOwnProperty(key)) {
+          var val = teamsOptions[key];
+          option.addChoice(val.fullname, key);
+        }
+      }
+
+      return option;
+    })
     .addIntegerOption((option) =>
       option
         .setName("semana")
@@ -49,29 +37,25 @@ module.exports = {
         .setRequired(false)
     ),
   channel: ["866700554293346314"],
-  async execute(interaction) {
-    const torneo = interaction.options.getString("torneo");
+  async execute(interaction, client) {
     const team = interaction.options.getString("team");
     let week = interaction.options.getInteger("semana");
-    decache("../../Teams/185191450013597696.json");
-    decache("../../Teams/verano2022.json");
-    const equiposT8 = require(`../../Teams/185191450013597696.json`);
-    const equiposVerano = require(`../../Teams/verano2022.json`);
-    let messages;
-    if (torneo == "T8") {
-      messages = equiposT8;
-      let currentFechaID = funcDate.getFecha(messages, team, interaction);
-      if (week == null) week = funcDate.getFecha(messages, team, interaction);
-      if (week > currentFechaID) {
-        interaction.followUp("No puedes ver planteles de fechas futuras");
-        return;
-      }
+    const torneo = client.config.tournament.name;
+    decache(`../../Teams/${torneo}.json`);
+    const teams = require(`../../Teams/${torneo}.json`);
+    let currentFechaID = funcDate.getFecha(
+      teams,
+      team,
+      interaction,
+      client.config.tournament.startDate
+    );
+    if (week == null) week = currentFechaID;
+    if (week > currentFechaID) {
+      interaction.followUp("No puedes ver planteles de fechas futuras");
+      return;
     }
-    if (torneo == "verano2022") {
-      messages = equiposVerano;
-      week = 0;
-    }
+    //console.log(currentFechaID);
 
-    funcTeam.getTeam(messages, team, week, interaction);
+    funcTeam.getTeam(teams, team, week, interaction, client.config);
   },
 };

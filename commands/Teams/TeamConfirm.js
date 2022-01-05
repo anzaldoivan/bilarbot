@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
   MessageActionRow,
-  MessageSelectMenu,
+  teamselectMenu,
   MessageEmbed,
 } = require("discord.js");
 const { DateTime, Interval } = require("luxon");
@@ -66,9 +66,7 @@ module.exports = {
         .setName("torneo")
         .setDescription("Escriba el dia a jugar.")
         .setRequired(true)
-        .addChoice("Superliga D1", "<:superligad1:769067664710434816>")
-        .addChoice("Liga Zero", "<:ligazero:906284883750576159>")
-        .addChoice("Copa ValencArc", "<:copavalencarc:768612526077509672>")
+        .addChoice("Verano 2022", "<:copavalencarc:768612526077509672>")
     )
     .addStringOption((option) =>
       option
@@ -98,16 +96,16 @@ module.exports = {
     const torneo = interaction.options.getString("torneo");
     const horario = interaction.options.getInteger("horario");
     const dia = interaction.options.getString("dia");
-    decache("../../Teams/185191450013597696.json");
-    const messages = require(`../../Teams/185191450013597696.json`);
+    decache(`../../Teams/${torneo}.json`);
+    const teams = require(`../../Teams/${torneo}.json`);
     decache("../../calendar/matches.json");
     const matches = require(`../../calendar/matches.json`);
     const messageAuthor = interaction.member.user.id;
-    let week = funcDate.getFecha(messages, team);
+    let week = funcDate.getFecha(teams, team);
     let weekDate = week - 1;
     let calendarWeek = funcDate2.getDate("2021-10-26") + 1;
-    //console.log(messages[team].torneo + " " + weekDate);
-    if (messages[team].torneo == "amateur") {
+    //console.log(teams[team].torneo + " " + weekDate);
+    if (teams[team].torneo == "amateur") {
       weekDate = weekDate + 1;
     }
     let matchDate = DateTime.local(2021, 10, 25)
@@ -117,9 +115,9 @@ module.exports = {
     //console.log(matchDate);
     //console.log("WEEK IS: " + week + " WEEKDATE is " + weekDate);
 
-    var directorID = Number(messages[team.toUpperCase()][week].director);
-    var captainID = Number(messages[team.toUpperCase()][week].captain);
-    var subcaptainID = Number(messages[team.toUpperCase()][week].subcaptain);
+    var directorID = Number(teams[team.toUpperCase()][week].director);
+    var captainID = Number(teams[team.toUpperCase()][week].captain);
+    var subcaptainID = Number(teams[team.toUpperCase()][week].subcaptain);
     let perms = false;
     if (messageAuthor == directorID) perms = true;
     if (messageAuthor == captainID) perms = true;
@@ -186,17 +184,17 @@ module.exports = {
 
     const embed = new MessageEmbed()
       .setTitle(
-        `${messages[team].fullname} vs ${messages[otherteam].fullname} el dia ${matchDate} a las ${horario}hs por la ${torneo}`
+        `${teams[team].fullname} vs ${teams[otherteam].fullname} el dia ${matchDate} a las ${horario}hs por la ${torneo}`
       )
       .setDescription("Confirmar el partido.");
 
     const row = new MessageActionRow().addComponents(
-      new MessageSelectMenu()
+      new teamselectMenu()
         .setCustomId("confirmar")
         .setPlaceholder("Selecciona el menu para confirmar el partido.")
         .addOptions([
           {
-            label: `Confirmar partido con ${messages[team].fullname} el dia ${matchDate} a las ${horario} horas`,
+            label: `Confirmar partido con ${teams[team].fullname} el dia ${matchDate} a las ${horario} horas`,
             description:
               "Confirmar el partido. Ignorar el mensaje para no confirmarlo.",
             value: `${team}/${otherteam}/${week}/${horario}/${matchDate}/${torneo}`,
@@ -204,9 +202,9 @@ module.exports = {
         ])
     );
     await interaction.editReply({ embeds: [embed], components: [row] });
-    console.log(`${otherteam} ${messages[otherteam][week].captain}`);
+    console.log(`${otherteam} ${teams[otherteam][week].captain}`);
     await interaction.followUp(
-      `<@${messages[otherteam][week].captain}> <@${messages[otherteam][week].subcaptain}> deben confirmar el partido con el menu de arriba.`
+      `<@${teams[otherteam][week].captain}> <@${teams[otherteam][week].subcaptain}> deben confirmar el partido con el menu de arriba.`
     );
 
     //await interaction.editReply("Pong!");
@@ -230,6 +228,6 @@ module.exports = {
     //   console.log(`Collected ${collected.size} interactions.`);
     // });
 
-    //funcTeam.getTeam(messages, team, week, interaction);
+    //funcTeam.getTeam(teams, team, week, interaction);
   },
 };

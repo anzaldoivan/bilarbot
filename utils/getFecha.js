@@ -1,35 +1,31 @@
 const funcDate = require("./getDate.js");
 const funcCreate = require("./createTeam.js");
 
-function getFecha(messages, team, interaction) {
-  let fechaProfesional = funcDate.getDate("2021-10-26");
-  let fechaAmateur = funcDate.getDate("2021-11-02");
+function getFecha(teams, team, interaction, startDate) {
+  let fechaProfesional = funcDate.getDate(startDate);
+  let fechaAmateur = funcDate.getDate(startDate);
   let currentFechaID;
 
-  if (!messages[team.toUpperCase()]) {
+  if (!teams[team.toUpperCase()]) {
     interaction.followUp("Equipo no encontrado.");
     return;
   }
 
-  if (messages[team.toUpperCase()].torneo == "amateur") {
+  if (teams[team.toUpperCase()].torneo == "amateur") {
     currentFechaID = fechaAmateur;
   } else {
     currentFechaID = fechaProfesional;
   }
 
   if (currentFechaID < 0) currentFechaID = 0;
-  currentFechaID++;
 
-  for (var key in messages) {
-    if (messages.hasOwnProperty(key)) {
-      var val = messages[key];
+  for (var key in teams) {
+    if (teams.hasOwnProperty(key)) {
+      var val = teams[key];
       // console.log(
-      //   `${val.torneo} ${key} ${fechaProfesional + 1} ${fechaAmateur + 1}`
+      //   `${val.torneo} ${key} ${startDate} ${fechaProfesional} ${fechaAmateur}`
       // );
-      if (val.torneo == "amateur")
-        funcCreate.createTeamList(messages, fechaAmateur + 1, key);
-      if (val.torneo == "profesional")
-        funcCreate.createTeamList(messages, fechaProfesional + 1, key);
+      funcCreate.createTeamList(teams, currentFechaID, key);
     }
   }
 

@@ -15,42 +15,27 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("equipos")
     .setDescription("Ver lista de Equipos para la T8"),
-  async execute(interaction) {
-    decache("../../Teams/185191450013597696.json");
-    decache("../../Teams/verano2022.json");
-    const messages = require(`../../Teams/185191450013597696.json`);
-    const teamsverano = require(`../../Teams/verano2022.json`);
+  async execute(interaction, client) {
+    const torneo = client.config.tournament.name;
+    decache(`../../Teams/${torneo}.json`);
+    const teams = require(`../../Teams/${torneo}.json`);
 
-    let stringAmateur = "";
-    let stringProfesional = "";
-    let stringVerano = "";
+    let stringTeams = "";
 
     embed = new Discord.MessageEmbed()
       .setTitle(`Lista de Equipos T8`)
       .setColor("#000000");
 
-    for (var key in messages) {
-      if (messages.hasOwnProperty(key)) {
-        var val = messages[key];
-        if (val.torneo == "amateur" && val.fullname != "TEST")
-          stringAmateur += `${val.fullname}\n`;
-        if (val.torneo == "profesional" && val.fullname != "TEST")
-          stringProfesional += `${val.fullname}\n`;
+    for (var key in teams) {
+      if (teams.hasOwnProperty(key)) {
+        var val = teams[key];
+        if (val.fullname != "TEST") stringTeams += `${val.fullname}\n`;
       }
     }
 
-    for (var key in teamsverano) {
-      if (teamsverano.hasOwnProperty(key)) {
-        var val = teamsverano[key];
-        if (val.fullname != "TEST") stringVerano += `${val.fullname}\n`;
-      }
-    }
+    if (stringTeams == "") stringTeams = "No hay equipos anotados aun.";
 
-    embed.addField("Torneo Profesional", `${stringProfesional}`);
-
-    embed.addField("Torneo Amateur", `${stringAmateur}`);
-
-    embed.addField("Torneo Verano 2022", `${stringVerano}`);
+    embed.addField("Torneo Verano 2022", `${stringTeams}`);
 
     interaction.followUp({ embeds: [embed] });
   },

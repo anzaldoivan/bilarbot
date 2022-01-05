@@ -11,16 +11,21 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("liberar")
     .setDescription("Liberar jugador de un equipo.")
-    .addStringOption((option) =>
+    .addStringOption((option) => {
       option
         .setName("team")
         .setDescription("Elija el Equipo.")
-        .setRequired(true)
-        .addChoice("Club Atletico Soccerjam", "CAS")
-        .addChoice("Meteors Gaming", "MG")
-        .addChoice("Union Deportivo Empate", "UDE")
-        .addChoice("TEST", "TEST")
-    )
+        .setRequired(true);
+      const teamsOptions = require(`../../Teams/verano2022.json`);
+      for (var key in teamsOptions) {
+        if (teamsOptions.hasOwnProperty(key)) {
+          var val = teamsOptions[key];
+          option.addChoice(val.fullname, key);
+        }
+      }
+
+      return option;
+    })
     .addUserOption((option) =>
       option
         .setName("usuario")
@@ -34,13 +39,14 @@ module.exports = {
       .getUser("usuario")
       .toString()
       .replace(/[^0-9\.]+/g, "");
-    decache("../../Teams/185191450013597696.json");
-    const messages = require(`../../Teams/185191450013597696.json`);
-    let week = funcDate.getFecha(messages, team);
+    const torneo = client.config.tournament.name;
+    decache(`../../Teams/${torneo}.json`);
+    const teams = require(`../../Teams/${torneo}.json`);
+    let week = funcDate.getFecha(teams, team);
     const messageAuthor = interaction.member.user.id;
-    var directorID = Number(messages[team.toUpperCase()][week].director);
-    var captainID = Number(messages[team.toUpperCase()][week].captain);
-    var subcaptainID = Number(messages[team.toUpperCase()][week].subcaptain);
+    var directorID = Number(teams[team.toUpperCase()][week].director);
+    var captainID = Number(teams[team.toUpperCase()][week].captain);
+    var subcaptainID = Number(teams[team.toUpperCase()][week].subcaptain);
     let perms = false;
     if (messageAuthor == directorID) perms = true;
     if (messageAuthor == captainID) perms = true;
@@ -48,57 +54,53 @@ module.exports = {
     if (!perms) {
       interaction.followUp(
         `Usted no posee permisos para liberar jugadores en ${
-          messages[team.toUpperCase()].fullname
+          teams[team.toUpperCase()].fullname
         }.`
       );
       return;
     }
 
-    if (messages[team.toUpperCase()][week].releases <= 0) {
+    if (teams[team.toUpperCase()][week].releases <= 0) {
       interaction.followUp("No tienes liberaciones disponibles esta semana.");
       return;
     }
     //console.log("The player ID sent on $liberar is: " + user);
 
-    if (!messages[team][week].players.includes(user)) {
+    if (!teams[team][week].players.includes(user)) {
       interaction.followUp("El jugador no pertenece a este equipo.");
       return;
     }
 
-    if (messages[team.toUpperCase()][week].newplayer == user) {
+    if (teams[team.toUpperCase()][week].newplayer == user) {
       //console.log(`Yay, the user is in new player section!`);
 
-      messages[team.toUpperCase()][week].newplayer = "";
-      if (messages[team.toUpperCase()].torneo != "amateur")
-        messages[team.toUpperCase()][week].newplayerscount = 0;
+      teams[team.toUpperCase()][week].newplayer = "";
+      if (teams[team.toUpperCase()].torneo != "amateur")
+        teams[team.toUpperCase()][week].newplayerscount = 0;
     }
-    //console.log(messages[team.toUpperCase()][week].players.indexOf(user));
-    const index = messages[team.toUpperCase()][week].players.indexOf(user);
+    //console.log(teams[team.toUpperCase()][week].players.indexOf(user));
+    const index = teams[team.toUpperCase()][week].players.indexOf(user);
     if (index > -1) {
-      messages[team.toUpperCase()][week].players.splice(index, 1);
+      teams[team.toUpperCase()][week].players.splice(index, 1);
     }
-    messages[team.toUpperCase()][week].releases -= 1;
-    messages[team.toUpperCase()][week].playerscount -= 1;
+    teams[team.toUpperCase()][week].releases -= 1;
+    teams[team.toUpperCase()][week].playerscount -= 1;
 
     manageNicks.manageNicks(client, interaction, user, team, "liberar");
 
-    fs.writeFileSync(
-      "./Teams/185191450013597696.json",
-      JSON.stringify(messages),
-      (err) => {
-        if (err) {
-          console.log(err);
-          interaction.followUp(err);
-        }
+    fs.writeFileSync(`./Teams/${torneo}.json`, JSON.stringify(teams), (err) => {
+      if (err) {
+        console.log(err);
+        interaction.followUp(err);
       }
-    );
+    });
 
-    funcTeam.getTeam(messages, team, week, interaction);
+    funcTeam.getTeam(teams, team, week, interaction, client.config);
     client.channels.cache
       .get("902547421962334219")
       .send(
         `El jugador <@${user}> ha sido liberado de ${
-          messages[team.toUpperCase()].fullname
+          teams[team.toUpperCase()].fullname
         }`
       );
   },

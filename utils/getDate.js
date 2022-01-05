@@ -5,7 +5,12 @@ function getDate(week) {
   const startDate = DateTime.fromISO(week);
   const currentDate = DateTime.fromISO(DateTime.now());
   const interval = Interval.fromDateTimes(startDate, currentDate);
-  const dateDifference = Math.trunc(interval.length("weeks"));
+  let dateDifference = Math.trunc(interval.length("weeks"));
+  if (Number.isNaN(dateDifference)) {
+    dateDifference = 0;
+  } else {
+    dateDifference++;
+  }
   return dateDifference;
 }
 

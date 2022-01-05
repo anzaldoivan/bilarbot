@@ -20,7 +20,7 @@ function createTeamList(fecha, team, interaction) {
   }
 }
 
-async function getTeam(messages, team, week, interaction) {
+async function getTeam(messages, team, week, interaction, config) {
   if (!messages[team.toUpperCase()]) {
     interaction.followUp("Equipo no encontrado.");
     return;
@@ -44,9 +44,9 @@ async function getTeam(messages, team, week, interaction) {
       //console.log(playersAmount);
       messages[team][week].playerscount = playersAmount;
       if (messages[team][week].newplayerscount) {
-        maxPlayersAmount = 10;
+        maxPlayersAmount = config.tournament.maxPlayers;
       } else {
-        maxPlayersAmount = 9;
+        maxPlayersAmount = config.tournament.maxPlayers;
       }
       //console.log(week);
       const users = require(`../Users/185191450013597696.json`);
@@ -166,7 +166,7 @@ async function getTeam(messages, team, week, interaction) {
     }
   } catch (error) {
     console.error(error);
-    getTeam(messages, team, 0, interaction);
+    getTeam(messages, team, 0, interaction, config);
   }
 }
 

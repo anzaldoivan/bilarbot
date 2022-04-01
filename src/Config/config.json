@@ -1,0 +1,51 @@
+{
+    "bans_channel": "527663989082030090",
+    "botip": "186.22.103.188",
+    "bots_channel": "335438935750868992",
+    "captain_channel": "460972681076932613",
+    "database": {
+        "collection": "matches2",
+        "dbname": "iossa",
+        "endpoint": "casanagay",
+        "host": "iosoccer-sa.bid",
+        "key": "9onzalo",
+        "pw": "mememadb",
+        "user": "root"
+    },
+    "elo": {
+        "here": "2022-01-22T19:23:15.617-03:00",
+        "maxplayers": 6,
+        "singlekeeper": true,
+        "singlekeeper_nuevos": false,
+        "token": "elomatch350"
+    },
+    "eloPort": "27014",
+    "estadisticas_channel": "462830929531109387",
+    "gamemode": "6v6",
+    "mm_channel": "779460129065009172",
+    "mod_channel": "931392747259191317",
+    "players": "players : 2 (27 max)",
+    "prefix": "$",
+    "privateserverip": "186.22.103.188",
+    "rcon_password": "evita",
+    "roles": {
+        "458075157253062657": "Capitan",
+        "485322687682445345": "Arbitro",
+        "veterano": "956358056692809799",
+        "nuevo": "604102329524027392"
+    },
+    "serverip": "200.73.128.202",
+    "teams_channel": "866700554293346314",
+    "token": "Nzc5NDkyOTM3MTc2MTg2ODgx.X7hVXg.WzFQ1M-ddJbWNemm_q_Bnz1c-UM",
+    "tournament": {
+        "maxPlayers": 14,
+        "maxRedCards": 2,
+        "maxYellowCards": 3,
+        "minPlayers": 9,
+        "name": "t9",
+        "startDate": "2022-03-28"
+    },
+    "tournament_channel": "826165028927307796",
+    "webhookID": "780567246804221953",
+    "webhookTOKEN": "Ca_34E6d2yn4ib4jPpET9Lerxh3qu09E3INDAH0h_xC9iZ5zDoyJkKdMvcXAS5UoFbkU"
+}

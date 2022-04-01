@@ -1,0 +1,45 @@
+{
+    "MG": {
+        "0": {
+            "blacklist": 0,
+            "captain": "301145160434319360",
+            "emergency": 3,
+            "lastpostponement": "",
+            "newplayer": "370232665477087234",
+            "newplayerscount": 1,
+            "players": [
+                "471810978128986113",
+                "163497523229491201",
+                "301145160434319360",
+                "188874252882149376",
+                "370232665477087234",
+                "411898901092761610"
+            ],
+            "playerscount": 5,
+            "postponement": 2,
+            "releases": 91,
+            "subcaptain": "185190495046205451",
+            "transfers": 95
+        },
+        "fullname": "Meteors Gaming"
+    },
+    "UDE": {
+        "0": {
+            "blacklist": 0,
+            "captain": "163495940315938816",
+            "emergency": 3,
+            "lastpostponement": "",
+            "newplayerscount": 0,
+            "players": [
+                "163495940315938816",
+                "334764709842518018"
+            ],
+            "playerscount": 0,
+            "postponement": 2,
+            "releases": 100,
+            "subcaptain": "334764709842518018",
+            "transfers": 100
+        },
+        "fullname": "Union Deportivo Empate"
+    }
+}

@@ -2,6 +2,6 @@
 
 echo (%time%)
 
-node index.js
+node src/index.js
 
 goto restart

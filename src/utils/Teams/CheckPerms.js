@@ -153,22 +153,30 @@ function checkOtherTeamsPlayers(interaction, teams, week, user, sendMessage) {
 function checkDivision(interaction, teams, team, user, users, sendMessage) {
   let perms = true;
   let division = teams[team].division.toUpperCase();
+  let stringReason;
   console.log(users[user]);
   console.log(division);
   if (users[user]) {
     if (division == "D2") {
       if (users[user].division == "D1") perms = false;
+      stringReason = "debido a que ha participado de la D1";
     }
     if (division == "D3") {
-      if (users[user].division == "D1") perms = false;
-      if (users[user].newbie == false) perms = false;
+      // if (users[user].division == "D1") perms = false;
+      // if (users[user].division == "D2") perms = false;
+      // stringReason = "debido a que a participo de la D1/D2";
+      if (users[user].newbie == false) {
+        perms = false;
+        stringReason =
+          "debido a que no cumple con los requisitos de ser nuevo (6 ofis o menos)";
+      }
     }
     console.log("Perms is now " + perms);
     if (!perms) {
       try {
         if (sendMessage)
           interaction.followUp(
-            `El jugador <@${user}> no puede jugar en la division ${division}.`
+            `El jugador <@${user}> no puede jugar en la division ${division} ${stringReason}.`
           );
         console.log("returning false!");
         return perms;

@@ -35,10 +35,22 @@ module.exports = {
         .setName("usuario")
         .setDescription("Selecciona al usuario que deseas liberar.")
         .setRequired(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("modo")
+        .setDescription("Selecciona el tipo de liberacion.")
+        .setRequired(true)
+        .addChoice("Normal", "normal")
+        .addChoice(
+          "Ex Jugador (no puede ser fichado por otros equipos)",
+          "exjugador"
+        )
     ),
   channel: ["866700554293346314"],
   async execute(interaction, client) {
     const team = interaction.options.getString("team");
+    const mode = interaction.options.getString("modo");
     let user = interaction.options
       .getUser("usuario")
       .toString()
@@ -66,7 +78,8 @@ module.exports = {
       teams[0],
       week,
       team,
-      user
+      user,
+      mode
     );
   },
 };

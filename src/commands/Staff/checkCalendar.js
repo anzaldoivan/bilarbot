@@ -13,7 +13,7 @@ module.exports = {
     .addIntegerOption((option) =>
       option.setName("semana").setDescription("Elija la semana.")
     ),
-  async execute(interaction) {
+  async execute(interaction, client) {
     let fecha = interaction.options.getInteger("semana");
     decache("../../calendar/t8sd1.json");
     decache("../../calendar/t8sd1.json");
@@ -23,7 +23,9 @@ module.exports = {
     const calendarsd3 = require(`${appRoot}/calendar/${torneo}d3.json`);
     const calendarvalen = require(`../../calendar/valen.json`);
     const calendaramateur = require(`../../calendar/amateur.json`);
-    let currentFechaID = funcDate.getDate("2022-03-28");
+    const startDate = client.config.tournament.startDate;
+    const startDateSplit = startDate.split("-");
+    let currentFechaID = funcDate.getDate(startDate);
     //currentFechaID++;
 
     //console.log(`Diferencia de semanas: ${currentFechaID}`);
@@ -48,7 +50,7 @@ module.exports = {
         return;
       }
       let embed = new Discord.MessageEmbed()
-        .setTitle(`${tournament} Fecha ${fecha + 1} (${date})`)
+        .setTitle(`${tournament} Semana ${fecha + 1} (${date})`)
         .setColor(`${color}`)
         .setThumbnail(`${image}`);
       let emoji;
@@ -73,7 +75,28 @@ module.exports = {
           name2 = clublist[calendar[fecha][p][1]].fullname;
         }
         embed.addField(
-          `Partido ${p + 1}`,
+          `Partido ${p + 1} (fecha ${fecha + 1})`,
+          `${emoji} ${name} vs ${name2} ${emoji2}`
+        );
+      }
+      for (let p = 0; p < calendar[fecha + 1].length; p++) {
+        console.log(calendar[fecha + 1][p][0]);
+        if (!clublist[calendar[fecha + 1][p][0]]) {
+          emoji = "⚽";
+          name = calendar[fecha + 1][p][0];
+        } else {
+          emoji = clublist[calendar[fecha + 1][p][0]].emoji;
+          name = clublist[calendar[fecha + 1][p][0]].fullname;
+        }
+        if (!clublist[calendar[fecha + 1][p][1]]) {
+          emoji2 = "⚽";
+          name2 = calendar[fecha + 1][p][1];
+        } else {
+          emoji2 = clublist[calendar[fecha + 1][p][1]].emoji;
+          name2 = clublist[calendar[fecha + 1][p][1]].fullname;
+        }
+        embed.addField(
+          `Partido ${p + 1} (fecha ${fecha + 2})`,
           `${emoji} ${name} vs ${name2} ${emoji2}`
         );
       }
@@ -89,7 +112,7 @@ module.exports = {
       calendarsd1,
       "ORANGE",
       sd1Date,
-      semana
+      currentFechaID - 1
     );
     await calendarEmbed(
       "D2",
@@ -97,7 +120,7 @@ module.exports = {
       calendarsd2,
       "BLUE",
       sd1Date,
-      semana
+      currentFechaID - 1
     );
     await calendarEmbed(
       "D3",
@@ -105,7 +128,7 @@ module.exports = {
       calendarsd3,
       "GREEN",
       sd1Date,
-      semana
+      currentFechaID - 1
     );
 
     // T8

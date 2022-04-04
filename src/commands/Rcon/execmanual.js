@@ -7,15 +7,15 @@ const torneo = config.tournament.name;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("exec")
-    .setDescription("Configuracion de un servidor de Oficial.")
+    .setName("execmanual")
+    .setDescription("Configuracion de un servidor de Oficial (IP Custom).")
     .addStringOption((option) =>
       option
         .setName("servidor")
-        .setDescription("Elija el servidor donde enviar el comando.")
+        .setDescription(
+          "Escriba el servidor donde enviar el comando (Ej: 200.30.1.3:27018)."
+        )
         .setRequired(true)
-        .addChoice("Servidor #4 (27018)", "27018")
-        .addChoice("Servidor #5 (27019)", "27019")
     )
     .addStringOption(
       (option) =>
@@ -65,11 +65,12 @@ module.exports = {
   channel: ["931392747259191317", "457737569954824192"],
   async execute(interaction, client) {
     const config = client.config;
-    const serverport = interaction.options.getString("servidor");
+    let serverport = interaction.options.getString("servidor");
+    const server = serverport.split(":");
     const conf = interaction.options.getString("conf");
     const team = interaction.options.getString("local");
     const otherteam = interaction.options.getString("visitante");
-    var conn = new Rcon(config.serverip, serverport, config.rcon_password);
+    var conn = new Rcon(server[0], server[1], config.rcon_password);
     let message;
     const teamsDB = await GetFromDB.getEverythingFrom("bilarbot", torneo);
     const teams = teamsDB[0];

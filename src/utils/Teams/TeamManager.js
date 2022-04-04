@@ -113,9 +113,19 @@ function freezeTeam(interaction, client, teams, week, team) {
   return;
 }
 
-async function releasePlayerDB(interaction, client, teams, week, team, user) {
+async function releasePlayerDB(
+  interaction,
+  client,
+  teams,
+  week,
+  team,
+  user,
+  mode
+) {
   const torneo = client.config.tournament.name;
   const emojiRelease = client.emojis.cache.get("954175513327443998");
+  let stringLiberado = "liberado";
+  if (mode == "exjugador") stringLiberado += " como ex jugador";
 
   // Is a new player?
   if (teams[team.toUpperCase()][week].newplayer == user) {
@@ -142,7 +152,7 @@ async function releasePlayerDB(interaction, client, teams, week, team, user) {
   client.channels.cache
     .get("902547421962334219")
     .send(
-      `${emojiRelease} El jugador <@${user}> ha sido liberado de ${
+      `${emojiRelease} El jugador <@${user}> ha sido ${stringLiberado} de ${
         teams[team.toUpperCase()].fullname
       }`
     );
@@ -200,9 +210,22 @@ function transferPlayer(interaction, client, teams, week, team, user) {
     );
 }
 
-async function transferPlayerDB(interaction, client, teams, week, team, user) {
+async function transferPlayerDB(
+  interaction,
+  client,
+  teams,
+  week,
+  team,
+  user,
+  mode
+) {
   const torneo = client.config.tournament.name;
   const emojiTransfer = client.emojis.cache.get("954174577142030366");
+  let stringFichaje = "fichado";
+  if (mode == "emergencia") {
+    stringFichaje += " de emergencia";
+    teams[team.toUpperCase()][week].emergency -= 1;
+  }
 
   // if (member.roles.cache.has("604102329524027392")) {
   //   //console.log(`Yay, the author of the message has the role!`);
@@ -236,7 +259,7 @@ async function transferPlayerDB(interaction, client, teams, week, team, user) {
   client.channels.cache
     .get("902547421962334219")
     .send(
-      `${emojiTransfer} El jugador <@${user}> ha sido fichado por ${
+      `${emojiTransfer} El jugador <@${user}> ha sido ${stringFichaje} por ${
         teams[team.toUpperCase()].fullname
       }`
     );

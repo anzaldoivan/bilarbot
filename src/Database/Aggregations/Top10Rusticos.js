@@ -1,4 +1,4 @@
-const queries = require("./queries");
+//const queries = require("./Queries.js");
 
 module.exports = (arg) => {
   return [

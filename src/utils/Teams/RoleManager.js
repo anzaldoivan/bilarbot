@@ -3,7 +3,6 @@ const fs = require("fs");
 const { DateTime, Interval } = require("luxon");
 let users = require(`${appRoot}/Users/185191450013597696.json`);
 let CheckPerms = require(`${appRoot}/utils/Teams/CheckPerms.js`);
-let TeamManager = require(`${appRoot}/utils/Teams/TeamManager.js`);
 const Database = require(`${appRoot}/Database/GetFromDB.js`);
 const BigNumber = require("bignumber.js");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);

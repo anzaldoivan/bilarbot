@@ -2,20 +2,6 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const funcTeam = require("../getTeam.js");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
-const RoleManager = require(`${appRoot}/Utils/Teams/RoleManager.js`);
-
-function updateFile(interaction, file, newFile) {
-  fs.writeFileSync(
-    `./src/Teams/${file}.json`,
-    JSON.stringify(newFile),
-    (err) => {
-      if (err) {
-        console.log(err);
-        interaction.followUp(err);
-      }
-    }
-  );
-}
 
 async function manageNicks(client, interaction, user, team, mode) {
   var nickold = interaction.guild.members.cache.get(user.toString()).nickname;
@@ -57,89 +43,7 @@ async function manageNicks(client, interaction, user, team, mode) {
   return;
 }
 
-function freezeTeam(interaction, client, teams, week, team) {
-  const torneo = client.config.tournament.name;
-
-  teams[team.toUpperCase()][week].director = "779492937176186881";
-  teams[team.toUpperCase()][week].captain = "779492937176186881";
-  teams[team.toUpperCase()][week].subcaptain = "779492937176186881";
-
-  updateFile(interaction, torneo, teams);
-
-  funcTeam.getTeam(teams, team, week, interaction, client.config);
-  client.channels.cache
-    .get("902547421962334219")
-    .send(
-      `Se han bloqueado los fichajes / liberaciones de ${
-        teams[team.toUpperCase()].fullname
-      }.`
-    );
-  return;
-}
-
-async function releasePlayerDB(
-  interaction,
-  client,
-  teams,
-  week,
-  team,
-  user,
-  mode
-) {
-  const torneo = client.config.tournament.name;
-  const emojiRelease = client.emojis.cache.get("954175513327443998");
-  let stringLiberado = "liberado";
-  if (mode == "exjugador") stringLiberado += " como ex jugador";
-
-  // Is a new player?
-  if (teams[team.toUpperCase()][week].newplayer == user) {
-    //console.log(`Yay, the user is in new player section!`);
-
-    teams[team.toUpperCase()][week].newplayer = "";
-    if (teams[team.toUpperCase()].torneo != "amateur")
-      teams[team.toUpperCase()][week].newplayerscount = 0;
-  }
-  //console.log(teams[team.toUpperCase()][week].players.indexOf(user));
-  const index = teams[team.toUpperCase()][week].players.indexOf(user);
-  if (index > -1) {
-    teams[team.toUpperCase()][week].players.splice(index, 1);
-  }
-  teams[team.toUpperCase()][week].releases -= 1;
-  teams[team.toUpperCase()][week].playerscount =
-    teams[team.toUpperCase()][week].players.length;
-
-  manageNicks(client, interaction, user, team, "liberar");
-
-  await RoleManager.updateUser(
-    interaction,
-    client,
-    user,
-    teams[team.toUpperCase()].division
-  );
-
-  await GetFromDB.updateDb("bilarbot", torneo, teams);
-  updateFile(interaction, torneo, teams);
-
-  await funcTeam.getTeam(teams, team, week, interaction, client.config);
-  client.channels.cache
-    .get("902547421962334219")
-    .send(
-      `${emojiRelease} El jugador <@${user}> ha sido ${stringLiberado} de ${
-        teams[team.toUpperCase()].fullname
-      }`
-    );
-  return;
-}
-
-async function transferPlayerDB(
-  interaction,
-  client,
-  teams,
-  week,
-  team,
-  user,
-  mode
-) {
+async function transferPlayerDB(interaction, client, user) {
   const torneo = client.config.tournament.name;
   const emojiTransfer = client.emojis.cache.get("954174577142030366");
   let stringFichaje = "fichado";
@@ -174,15 +78,7 @@ async function transferPlayerDB(
 
   manageNicks(client, interaction, user, team, "fichar");
 
-  await RoleManager.updateUser(
-    interaction,
-    client,
-    user,
-    teams[team.toUpperCase()].division
-  );
-
   await GetFromDB.updateDb("bilarbot", torneo, teams);
-  updateFile(interaction, torneo, teams);
 
   await funcTeam.getTeam(teams, team, week, interaction, client.config);
   client.channels.cache
@@ -196,7 +92,9 @@ async function transferPlayerDB(
 }
 
 module.exports = {
+  releasePlayer,
   releasePlayerDB,
+  transferPlayer,
   transferPlayerDB,
   freezeTeam,
   manageNicks,

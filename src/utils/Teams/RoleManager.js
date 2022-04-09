@@ -6,6 +6,7 @@ let CheckPerms = require(`${appRoot}/utils/Teams/CheckPerms.js`);
 let TeamManager = require(`${appRoot}/utils/Teams/TeamManager.js`);
 const Database = require(`${appRoot}/Database/GetFromDB.js`);
 const BigNumber = require("bignumber.js");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 var counter = 0;
 var counterCurrentTournament = 0;
@@ -21,17 +22,13 @@ function getSteam(steamID64) {
   return steam;
 }
 
-function updateUsers(interaction, newFile) {
-  fs.writeFileSync(
-    `./src/Users/185191450013597696.json`,
-    JSON.stringify(newFile),
-    (err) => {
-      if (err) {
-        console.log(err);
-        interaction.followUp(err);
-      }
-    }
-  );
+async function updateUsers(interaction, newFile) {
+  try {
+    await GetFromDB.updateDb("bilarbot", "users", newFile);
+  } catch (err) {
+    console.log(err);
+    interaction.followUp(err);
+  }
 }
 
 async function addRole(client, serverid, roleid, userid) {
@@ -48,8 +45,11 @@ async function removeRole(client, serverid, roleid, userid) {
   await member.roles.remove(role); // here we just added the role to the member we got.
 }
 
-async function checkVeteran(client, user, stats) {
-  if (stats[0].matches >= 35) {
+async function checkVeteran(interaction, client, user, users, stats) {
+  console.log(users[user]);
+  console.log(users);
+  console.log(user);
+  if (stats.matches >= 35) {
     counterVeteran++;
     await addRole(
       client,
@@ -61,11 +61,11 @@ async function checkVeteran(client, user, stats) {
   } else {
     users[user].veteran = false;
   }
-  updateUsers(interaction, users);
+  await updateUsers(interaction, users);
 }
 
-async function checkNewbie(client, user, stats) {
-  if (stats[0].matches <= 6) {
+async function checkNewbie(interaction, client, user, users, stats) {
+  if (stats.matches <= 6) {
     counterNew++;
     await addRole(
       client,
@@ -83,11 +83,41 @@ async function checkNewbie(client, user, stats) {
     );
     users[user].newbie = false;
   }
-  updateUsers(interaction, users);
+  await updateUsers(interaction, users);
+}
+
+async function setDivision(interaction, client, user, users, division) {
+  if (!users[user].division) {
+    users[user].division = division;
+  }
+  if (users[user].division == "D3") {
+    users[user].division = division;
+  }
+  await updateUsers(interaction, users);
 }
 
 function setPerms(json) {
   console.log(json);
+}
+
+async function updateUser(interaction, client, user, division) {
+  const usersDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+  const users = await usersDB[0];
+  let steamID = getSteam(users[user].steam);
+  let statsDB = await Database.getPlayerFromID(steamID, "all");
+  let stats = statsDB[0];
+  console.log(stats);
+  if (Object.keys(statsDB).length != 0) {
+    if (user == 188874252882149376) {
+      console.log(getSteam(users[user].steam));
+      console.log(users[user].steam);
+      console.log(users[user].nick);
+      console.log(stats);
+    }
+    await checkVeteran(interaction, client, user, users, stats);
+    await checkNewbie(interaction, client, user, users, stats);
+  }
+  await setDivision(interaction, client, user, users, division);
 }
 
 async function setRoles(interaction, client) {
@@ -134,8 +164,8 @@ async function setRoles(interaction, client) {
           console.log(users[user].nick);
           console.log(stats);
         }
-        await checkVeteran(client, user, stats);
-        await checkNewbie(client, user, stats);
+        await checkVeteran(interaction, client, user, users, stats);
+        await checkNewbie(interaction, client, user, users, stats);
       }
     }
   }
@@ -151,4 +181,4 @@ async function setRoles(interaction, client) {
   );
 }
 
-module.exports = { setRoles, getSteam };
+module.exports = { setRoles, getSteam, updateUser };

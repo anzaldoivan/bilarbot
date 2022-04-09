@@ -106,7 +106,7 @@ module.exports = {
       Number(startDateSplit[2])
     )
       .plus({ weeks: weekDate })
-      .plus({ days: dia });
+      .plus({ days: dia - 1 });
     matchDate = matchDate.toISODate();
 
     // Verifications

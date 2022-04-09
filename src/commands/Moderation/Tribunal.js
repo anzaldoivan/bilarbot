@@ -20,7 +20,7 @@ module.exports = {
         .setName("team")
         .setDescription("Elija el Equipo.")
         .setRequired(true);
-      const teamsOptions = require(`../../Teams/${torneo}.json`);
+      const teamsOptions = require(`${appRoot}/Teams/${torneo}.json`);
       for (var key in teamsOptions) {
         if (teamsOptions.hasOwnProperty(key)) {
           var val = teamsOptions[key];

@@ -1,1 +1,186 @@
-{"1":{"2022-01-18":{"0":{"arbitro":"723704624703602797","away":"FAN","canal":"ios_sa2","day":"2022-01-18","home":"LCB","hour":"2300","streamer":"134143457592737793","tournament":"<:verano20:651632603295907843>"},"1":{"arbitro":"","away":"CAD","canal":"ios_sa","day":"2022-01-18","home":"LFC","hour":"2200","streamer":"301145160434319360","tournament":"<:verano20:651632603295907843>"}}},"_id":"624604a929f0452ab8c0c3d7"}
+{
+    "1": {
+        "2022-04-01": {
+            "0": {
+                "arbitro": "",
+                "away": "PLS",
+                "day": "2022-04-01",
+                "home": "NC",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "SS",
+                "day": "2022-04-01",
+                "home": "UDE",
+                "hour": "2230",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-02": {
+            "0": {
+                "arbitro": "",
+                "away": "GB",
+                "day": "2022-04-02",
+                "home": "D7",
+                "hour": "2330",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "BBC",
+                "day": "2022-04-02",
+                "home": "NSC",
+                "hour": "2130",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-03": {
+            "0": {
+                "arbitro": "",
+                "away": "MG",
+                "day": "2022-04-03",
+                "home": "PEAKY",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "NSC",
+                "day": "2022-04-03",
+                "home": "NC",
+                "hour": "2230",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "2": {
+                "arbitro": "",
+                "away": "BV",
+                "day": "2022-04-03",
+                "home": "GB",
+                "hour": "2200",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-04": {
+            "0": {
+                "arbitro": "",
+                "away": "SS",
+                "day": "2022-04-04",
+                "home": "PEAKY",
+                "hour": "2345",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "BV",
+                "day": "2022-04-04",
+                "home": "TOR",
+                "hour": "2245",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        }
+    },
+    "2": {
+        "2022-04-05": {
+            "0": {
+                "arbitro": "",
+                "away": "D7",
+                "day": "2022-04-05",
+                "home": "LFC",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-08": {
+            "0": {
+                "arbitro": "",
+                "away": "BBC",
+                "day": "2022-04-08",
+                "home": "NC",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "D7",
+                "day": "2022-04-08",
+                "home": "BV",
+                "hour": "2245",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "2": {
+                "arbitro": "",
+                "away": "GB",
+                "day": "2022-04-08",
+                "home": "LFC",
+                "hour": "2330",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-09": {
+            "0": {
+                "arbitro": "",
+                "away": "NSC",
+                "day": "2022-04-09",
+                "home": "PLS",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-10": {
+            "0": {
+                "arbitro": "",
+                "away": "PEAKY",
+                "day": "2022-04-10",
+                "home": "MD",
+                "hour": "2200",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "1": {
+                "arbitro": "",
+                "away": "SS",
+                "day": "2022-04-10",
+                "home": "MG",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            },
+            "2": {
+                "arbitro": "",
+                "away": "LFC",
+                "day": "2022-04-10",
+                "home": "TOR",
+                "hour": "2300",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        },
+        "2022-04-11": {
+            "0": {
+                "arbitro": "",
+                "away": "UDE",
+                "day": "2022-04-11",
+                "home": "MD",
+                "hour": "2315",
+                "streamer": "",
+                "tournament": "<:verano20:651632603295907843>"
+            }
+        }
+    }
+}

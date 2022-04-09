@@ -32,8 +32,6 @@ module.exports = {
 
     if (!fecha) {
       fecha = currentFechaID;
-    } else {
-      fecha--;
     }
 
     async function calendarEmbed(
@@ -50,14 +48,35 @@ module.exports = {
         return;
       }
       let embed = new Discord.MessageEmbed()
-        .setTitle(`${tournament} Semana ${fecha + 1} (${date})`)
+        .setTitle(`${tournament} Semana ${Math.round(fecha / 2)} (${date})`)
         .setColor(`${color}`)
         .setThumbnail(`${image}`);
       let emoji;
       let emoji2;
       let name;
       let name2;
-      console.log(calendar[fecha]);
+      console.log(calendar[fecha - 1]);
+      for (let p = 0; p < calendar[fecha - 1].length; p++) {
+        console.log(calendar[fecha - 1][p][0]);
+        if (!clublist[calendar[fecha - 1][p][0]]) {
+          emoji = "⚽";
+          name = calendar[fecha - 1][p][0];
+        } else {
+          emoji = clublist[calendar[fecha - 1][p][0]].emoji;
+          name = clublist[calendar[fecha - 1][p][0]].fullname;
+        }
+        if (!clublist[calendar[fecha - 1][p][1]]) {
+          emoji2 = "⚽";
+          name2 = calendar[fecha - 1][p][1];
+        } else {
+          emoji2 = clublist[calendar[fecha - 1][p][1]].emoji;
+          name2 = clublist[calendar[fecha - 1][p][1]].fullname;
+        }
+        embed.addField(
+          `Partido ${p + 1} (fecha ${fecha})`,
+          `${emoji} ${name} vs ${name2} ${emoji2}`
+        );
+      }
       for (let p = 0; p < calendar[fecha].length; p++) {
         console.log(calendar[fecha][p][0]);
         if (!clublist[calendar[fecha][p][0]]) {
@@ -79,56 +98,36 @@ module.exports = {
           `${emoji} ${name} vs ${name2} ${emoji2}`
         );
       }
-      for (let p = 0; p < calendar[fecha + 1].length; p++) {
-        console.log(calendar[fecha + 1][p][0]);
-        if (!clublist[calendar[fecha + 1][p][0]]) {
-          emoji = "⚽";
-          name = calendar[fecha + 1][p][0];
-        } else {
-          emoji = clublist[calendar[fecha + 1][p][0]].emoji;
-          name = clublist[calendar[fecha + 1][p][0]].fullname;
-        }
-        if (!clublist[calendar[fecha + 1][p][1]]) {
-          emoji2 = "⚽";
-          name2 = calendar[fecha + 1][p][1];
-        } else {
-          emoji2 = clublist[calendar[fecha + 1][p][1]].emoji;
-          name2 = clublist[calendar[fecha + 1][p][1]].fullname;
-        }
-        embed.addField(
-          `Partido ${p + 1} (fecha ${fecha + 2})`,
-          `${emoji} ${name} vs ${name2} ${emoji2}`
-        );
-      }
       interaction.followUp({ embeds: [embed] });
     }
-    let sd1Date = DateTime.local(2022, 03, 28).plus({ weeks: fecha - 1 });
+    let sd1Date = DateTime.local(2022, 03, 29).plus({ weeks: fecha - 1 });
     sd1Date = sd1Date.toISODate();
     let semana = fecha * 2;
+    console.log(`Semana ${semana} (fecha ${fecha} * 2) timestamp ${sd1Date}`);
 
     await calendarEmbed(
       "D1",
-      "https://stats.iosoccer-sa.bid/tournaments/d1.png",
+      "https://iossa-stats.herokuapp.com/tournaments/ligad1.png",
       calendarsd1,
       "ORANGE",
       sd1Date,
-      currentFechaID - 1
+      semana - 1
     );
     await calendarEmbed(
       "D2",
-      "https://stats.iosoccer-sa.bid/tournaments/d2.png",
+      "https://iossa-stats.herokuapp.com/tournaments/ligad2.png",
       calendarsd2,
       "BLUE",
       sd1Date,
-      currentFechaID - 1
+      semana - 1
     );
     await calendarEmbed(
       "D3",
-      "https://stats.iosoccer-sa.bid/tournaments/d2.png",
+      "https://iossa-stats.herokuapp.com/tournaments/ligad3.png",
       calendarsd3,
       "GREEN",
       sd1Date,
-      currentFechaID - 1
+      semana - 1
     );
 
     // T8

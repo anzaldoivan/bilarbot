@@ -11,6 +11,8 @@ const funcTeam = require("../../utils/getTeam.js");
 const funcCreate = require("../../utils/createTeam.js");
 const funcDate = require("../../utils/getFecha.js");
 const GetFromDB = require("../../Database/GetFromDB.js");
+let config = require(`${appRoot}/Config/config.json`);
+const torneo = config.tournament.name;
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,7 +23,7 @@ module.exports = {
         .setName("team")
         .setDescription("Elija el Equipo.")
         .setRequired(true);
-      const teamsOptions = require(`../../Teams/verano2022.json`);
+      const teamsOptions = require(`../../Teams/${torneo}.json`);
       for (var key in teamsOptions) {
         if (teamsOptions.hasOwnProperty(key)) {
           var val = teamsOptions[key];

@@ -12,43 +12,44 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("asignar")
     .setDescription("Asignar arbitros / streamers")
-    .addIntegerOption((option) => {
+    .addStringOption((option) => {
       option
         .setName("partido")
         .setDescription("Elija el partido a modificar.")
         .setRequired(true);
-      //   let matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "matches");
-      //   let matches = matchesDB[0];
-      // const startDate = configuration.tournament.startDate;
-      // let currentFechaID = funcDate.getDate(startDate);
-      // //console.log(calendar[fecha]);
-      // for (var key in matches) {
-      //   if (matches.hasOwnProperty(key)) {
-      //     var val = matches[key];
-      //     for (var key2 in val) {
-      //       if (val.hasOwnProperty(key2)) {
-      //         var match = val[key2];
-      //         for (var key3 in match) {
-      //           if (match.hasOwnProperty(key3)) {
-      //             var matchID = match[key3];
-      //             let date1 = DateTime.now();
-      //             let date2 = DateTime.fromISO(key2);
-      //             let diff = Interval.fromDateTimes(date2, date1);
-      //             let diffDays = Math.trunc(diff.length("days"));
-      //             if (isNaN(diffDays)) diffDays = 0;
-      //             //console.log(`Diff days is: ${diffDays} (${key2})`);
-      //             if (key == currentFechaID && diffDays < 1) {
-      //               option.addChoice(
-      //                 `${matchID.day} ${matchID.home} vs ${matchID.away}`,
-      //                 `${currentFechaID}/${key}/${key2}/${key3}`
-      //               );
-      //             }
-      //           }
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
+      const matches = require(`${appRoot}/calendar/matches.json`);
+
+      const startDate = configuration.tournament.startDate;
+      let currentFechaID = funcDate.getDate(startDate);
+      //console.log(calendar[fecha]);
+      for (var key in matches) {
+        if (matches.hasOwnProperty(key)) {
+          var val = matches[key];
+          for (var key2 in val) {
+            if (val.hasOwnProperty(key2)) {
+              var match = val[key2];
+              for (var key3 in match) {
+                if (match.hasOwnProperty(key3)) {
+                  var matchID = match[key3];
+                  let date1 = DateTime.now();
+                  let date2 = DateTime.fromISO(key2);
+                  let diff = Interval.fromDateTimes(date2, date1);
+                  let diffDays = Math.trunc(diff.length("days"));
+                  if (isNaN(diffDays)) diffDays = 0;
+                  //console.log(`Diff days is: ${diffDays} (${key2})`);
+                  if (key == currentFechaID && diffDays < 1) {
+                    //console.log(matchID);
+                    option.addChoice(
+                      `${matchID.day} ${matchID.home} vs ${matchID.away}`,
+                      `${currentFechaID}/${key}/${key2}/${key3}`
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       return option;
     })
     .addStringOption((option) =>
@@ -80,7 +81,7 @@ module.exports = {
   async execute(interaction, client) {
     const role = interaction.options.getString("rol");
     //const partido = interaction.options.getString("partido").split("/");
-    const partido = interaction.options.getInteger("partido");
+    const partido = interaction.options.getString("partido");
     let canal = interaction.options.getString("canal");
     let user = interaction.options.getUser("usuario");
     if (user) user = user.toString().replace(/[^0-9\.]+/g, "");

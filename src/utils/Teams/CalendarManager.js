@@ -5,6 +5,19 @@ const funcTeam = require("../getTeam.js");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 const funcMatches = require("../getMatches.js");
 
+function updateFile(interaction, file, newFile) {
+  fs.writeFileSync(
+    `./src/calendar/${file}.json`,
+    JSON.stringify(newFile),
+    (err) => {
+      if (err) {
+        console.log(err);
+        interaction.followUp(err);
+      }
+    }
+  );
+}
+
 async function confirmMatch(
   interaction,
   client,
@@ -81,6 +94,7 @@ async function confirmMatch(
   }
 
   await GetFromDB.updateDb("bilarbot", "matches", matches);
+  updateFile(interaction, "matches", matches);
 
   let matchesEmbed = await funcMatches.getMatches(
     interaction,

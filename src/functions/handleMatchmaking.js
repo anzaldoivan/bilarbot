@@ -8,7 +8,7 @@ const signed = require("../utils/signedList.js");
 // Express JSON
 app.use(express.json());
 
-app.listen(5000, "0.0.0.0", () => {
+app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
   console.log(`Server started on port 5000`);
 });
 

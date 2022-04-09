@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const funcTeam = require("../getTeam.js");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
-const RoleManager = require(`${appRoot}/Utils/Teams/RoleManager.js`);
+const RoleManager = require(`${appRoot}/utils/Teams/RoleManager.js`);
 
 function updateFile(interaction, file, newFile) {
   fs.writeFileSync(

@@ -80,8 +80,7 @@ module.exports = {
   channel: ["931392747259191317", "481214239323979787"],
   async execute(interaction, client) {
     const role = interaction.options.getString("rol");
-    //const partido = interaction.options.getString("partido").split("/");
-    const partido = interaction.options.getString("partido");
+    const partido = interaction.options.getString("partido").split("/");
     let canal = interaction.options.getString("canal");
     let user = interaction.options.getUser("usuario");
     if (user) user = user.toString().replace(/[^0-9\.]+/g, "");
@@ -92,6 +91,12 @@ module.exports = {
     const startDate = client.config.tournament.startDate;
     const startDateSplit = startDate.split("-");
     let currentFechaID = funcDate.getDate(startDate);
+
+    console.log(
+      `Semana: ${currentFechaID} valor partido ${
+        matches[partido[0]][partido[2]][partido[3]]
+      }`
+    );
 
     let date = DateTime.local(
       Number(startDateSplit[0]),

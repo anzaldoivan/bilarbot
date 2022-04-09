@@ -5,7 +5,7 @@ const decache = require("decache");
 const funcDate = require("../../utils/getDate.js");
 const funcMatches = require("../../utils/getMatches.js");
 const fs = require("fs");
-const configuration = require("../../config/config.json");
+const configuration = require("../../Config/config.json");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 module.exports = {

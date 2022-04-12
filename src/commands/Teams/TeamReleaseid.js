@@ -58,7 +58,7 @@ module.exports = {
     if (!perms.canRelease(interaction, client, teams[0], team, week, user))
       return;
 
-    await TeamManager.releasePlayer(
+    await TeamManager.releasePlayerDB(
       interaction,
       client,
       teams[0],

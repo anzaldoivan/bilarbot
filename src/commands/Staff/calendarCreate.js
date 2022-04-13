@@ -17,6 +17,7 @@ module.exports = {
         .addChoice("Liga D2", "d2")
         .addChoice("Liga D3", "d3")
         .addChoice("Copa Valen", "valen")
+        .addChoice("Copa Maradei", "maradei")
         .addChoice("Copa Amateur", "amateur")
     ),
   permission: ["188714975244582913"],
@@ -71,15 +72,6 @@ module.exports = {
       "Uruguay",
       "USA",
     ];
-
-    let posA = [0, 1, 2, 3];
-    let posB = [4, 5, 6, 7];
-    let posC = [8, 9, 10, 11];
-    let aux;
-    let groupA = [];
-    let groupB = [];
-    let groupC = [];
-    let groupD = [];
 
     function shuffle(array) {
       var currentIndex = array.length,
@@ -166,7 +158,7 @@ module.exports = {
       return schedule;
     };
 
-    const sorteoliga = (interaction, teams, rounds, string) => {
+    const sorteoliga = (interaction, teams, rounds, stringCompetencia) => {
       let leagueSchedule = roundRobin(teams, rounds);
 
       for (let p = 0; p < leagueSchedule.length; p++) {
@@ -176,11 +168,11 @@ module.exports = {
       calendar = leagueSchedule;
 
       interaction.followUp(
-        "Sorteo realizado con Exito! Recuerda utilizar el comando de $fecha n para visualizar los partidos de la fecha."
+        "Sorteo realizado con Exito! Recuerda utilizar el comando de /calendario para visualizar los partidos de cada semana."
       );
 
       fs.writeFileSync(
-        `${appRoot}/calendar/${torneo}${string}.json`,
+        `${appRoot}/calendar/${torneo}${stringCompetencia}.json`,
         JSON.stringify(calendar),
         (err) => {
           if (err) {
@@ -195,139 +187,161 @@ module.exports = {
       "Calendar lenght is: " + calendar.length + " / format:" + format
     );
 
-    if (format === "maradei") {
-      shuffle(posA);
-      shuffle(posB);
-      shuffle(posC);
-      for (let z = 0; z < 4; z++) {
-        console.log("Iteracion " + z);
-        aux = [];
-        aux.push(posA[0]);
-        aux.push(posB[0]);
-        aux.push(posC[0]);
-        posA.shift();
-        posB.shift();
-        posC.shift();
-        console.log(aux);
-        if (z == 0) groupA = aux;
-        if (z == 1) groupB = aux;
-        if (z == 2) groupC = aux;
-        if (z == 3) groupD = aux;
-      }
-      console.log("Mostrando grupos");
-      aux = [];
-      aux = [json[groupA[0]]._id, json[groupA[1]]._id, json[groupA[2]]._id];
-      groupA = aux;
-      aux = [];
-      aux = [json[groupB[0]]._id, json[groupB[1]]._id, json[groupB[2]]._id];
-      groupB = aux;
-      aux = [];
-      aux = [json[groupC[0]]._id, json[groupC[1]]._id, json[groupC[2]]._id];
-      groupC = aux;
-      aux = [];
-      aux = [json[groupD[0]]._id, json[groupD[1]]._id, json[groupD[2]]._id];
-      groupD = aux;
-      console.log(groupA);
-      console.log(groupB);
-      console.log(groupC);
-      console.log(groupD);
-      let embedA = new Discord.MessageEmbed()
-        .setTitle("Grupo A")
-        .setColor("#ff0000")
-        .setThumbnail(
-          `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
-        )
-        .addField(`Participantes`, `${groupA}`);
-      let embedB = new Discord.MessageEmbed()
-        .setTitle("Grupo B")
-        .setColor("#ff0000")
-        .setThumbnail(
-          `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
-        )
-        .addField(`Participantes`, `${groupB}`);
-      let embedC = new Discord.MessageEmbed()
-        .setTitle("Grupo C")
-        .setColor("#ff0000")
-        .setThumbnail(
-          `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
-        )
-        .addField(`Participantes`, `${groupC}`);
-      let embedD = new Discord.MessageEmbed()
-        .setTitle("Grupo D")
-        .setColor("#ff0000")
-        .setThumbnail(
-          `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
-        )
-        .addField(`Participantes`, `${groupD}`);
-      message.channel.send(embedA);
-      message.channel.send(embedB);
-      message.channel.send(embedC);
-      message.channel.send(embedD);
-
-      let cupScheduleA = roundRobinCup(groupA, 2);
-      let cupScheduleB = roundRobinCup(groupB, 2);
-      let cupScheduleC = roundRobinCup(groupC, 2);
-      let cupScheduleD = roundRobinCup(groupD, 2);
-
-      console.log(cupScheduleA[0][0]);
-      console.log(cupScheduleB[0]);
-      console.log(cupScheduleC[0]);
-      console.log(cupScheduleD[0]);
-
-      let cupSchedule = [
-        [
-          cupScheduleA[0][0],
-          cupScheduleA[0][1],
-          cupScheduleA[0][2],
-          cupScheduleB[0][0],
-          cupScheduleB[0][1],
-          cupScheduleB[0][2],
-          cupScheduleC[0][0],
-          cupScheduleC[0][1],
-          cupScheduleC[0][2],
-          cupScheduleD[0][0],
-          cupScheduleD[0][1],
-          cupScheduleD[0][2],
-        ],
-        [
-          cupScheduleA[1][0],
-          cupScheduleA[1][1],
-          cupScheduleA[1][2],
-          cupScheduleB[1][0],
-          cupScheduleB[1][1],
-          cupScheduleB[1][2],
-          cupScheduleC[1][0],
-          cupScheduleC[1][1],
-          cupScheduleC[1][2],
-          cupScheduleD[1][0],
-          cupScheduleD[1][1],
-          cupScheduleD[1][2],
-        ],
-      ];
-
-      for (let p = 0; p < 2; p++) {
-        for (let z = 0; z < 12; z++) {
-          console.log(cupSchedule[p][z]);
-        }
-      }
-
-      console.log(cupSchedule);
-
-      await interaction.followUp(
-        "Sorteo realizado con Exito! Recuerda utilizar el comando de $fecha n para visualizar los partidos de la fecha."
-      );
-
-      fs.writeFileSync(
-        "./calendar/amateur.json",
-        JSON.stringify(cupSchedule),
-        (err) => {
-          if (err) {
-            console.log(err);
-            message.channel.send(err);
-          }
-        }
-      );
+    if (format == "maradei") {
+      let groupA = ["UDE", "TOR", "PLS", "BBC"];
+      let groupB = ["MG", "GB", "LFC", "NSC"];
+      let groupC = ["PEAKY", "MD", "D7", "PES"];
+      let groupD = ["SS", "BV", "NC"];
+      sorteoliga(interaction, groupA, 2, "maradeiA");
+      sorteoliga(interaction, groupB, 2, "maradeiB");
+      sorteoliga(interaction, groupC, 2, "maradeiC");
+      sorteoliga(interaction, groupD, 2, "maradeiD");
     }
+
+    // if (format === "maradei") {
+    //   console.log("Creating Maradei calendar...");
+    //   let posA = [0, 1, 2, 3];
+    //   let posB = [4, 5, 6, 7];
+    //   let posC = [8, 9, 10, 11];
+    //   let aux;
+    //   let groupA = ["UDE", "TOR", "PLS", "BBC"];
+    //   let groupB = ["MG", "GB", "LFC", "NSC"];
+    //   let groupC = ["PEAKY", "MD", "D7", "PES"];
+    //   let groupD = ["SS", "BV", "NC"];
+    //   // mezclado y armado de grupos
+    //   // shuffle(posA);
+    //   // shuffle(posB);
+    //   // shuffle(posC);
+    //   // shuffle(posD);
+    //   // for (let z = 0; z < 4; z++) {
+    //   //   console.log("Iteracion " + z);
+    //   //   aux = [];
+    //   //   aux.push(posA[0]);
+    //   //   aux.push(posB[0]);
+    //   //   aux.push(posC[0]);
+    //   //   posA.shift();
+    //   //   posB.shift();
+    //   //   posC.shift();
+    //   //   console.log(aux);
+    //   //   if (z == 0) groupA = aux;
+    //   //   if (z == 1) groupB = aux;
+    //   //   if (z == 2) groupC = aux;
+    //   //   if (z == 3) groupD = aux;
+    //   // }
+    //   // console.log("Mostrando grupos");
+    //   // aux = [];
+    //   // aux = [json[groupA[0]]._id, json[groupA[1]]._id, json[groupA[2]]._id];
+    //   // groupA = aux;
+    //   // aux = [];
+    //   // aux = [json[groupB[0]]._id, json[groupB[1]]._id, json[groupB[2]]._id];
+    //   // groupB = aux;
+    //   // aux = [];
+    //   // aux = [json[groupC[0]]._id, json[groupC[1]]._id, json[groupC[2]]._id];
+    //   // groupC = aux;
+    //   // aux = [];
+    //   // aux = [json[groupD[0]]._id, json[groupD[1]]._id, json[groupD[2]]._id];
+    //   // groupD = aux;
+    //   // console.log(groupA);
+    //   // console.log(groupB);
+    //   // console.log(groupC);
+    //   // console.log(groupD);
+    //   let embedA = new Discord.MessageEmbed()
+    //     .setTitle("Grupo A")
+    //     .setColor("#ff0000")
+    //     .setThumbnail(
+    //       `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
+    //     )
+    //     .addField(`Participantes`, `${groupA}`);
+    //   let embedB = new Discord.MessageEmbed()
+    //     .setTitle("Grupo B")
+    //     .setColor("#ff0000")
+    //     .setThumbnail(
+    //       `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
+    //     )
+    //     .addField(`Participantes`, `${groupB}`);
+    //   let embedC = new Discord.MessageEmbed()
+    //     .setTitle("Grupo C")
+    //     .setColor("#ff0000")
+    //     .setThumbnail(
+    //       `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
+    //     )
+    //     .addField(`Participantes`, `${groupC}`);
+    //   let embedD = new Discord.MessageEmbed()
+    //     .setTitle("Grupo D")
+    //     .setColor("#ff0000")
+    //     .setThumbnail(
+    //       `https://stats.iosoccer-sa.bid/tournaments/copamaradei.png`
+    //     )
+    //     .addField(`Participantes`, `${groupD}`);
+    //   interaction.followUp(embedA);
+    //   interaction.followUp(embedB);
+    //   interaction.followUp(embedC);
+    //   interaction.followUp(embedD);
+
+    //   let cupScheduleA = roundRobinCup(groupA, 2);
+    //   let cupScheduleB = roundRobinCup(groupB, 2);
+    //   let cupScheduleC = roundRobinCup(groupC, 2);
+    //   let cupScheduleD = roundRobinCup(groupD, 2);
+
+    //   console.log(cupScheduleA[0][0]);
+    //   console.log(cupScheduleB[0]);
+    //   console.log(cupScheduleC[0]);
+    //   console.log(cupScheduleD[0]);
+
+    //   let cupSchedule = [
+    //     [
+    //       cupScheduleA[0][0],
+    //       cupScheduleA[0][1],
+    //       cupScheduleA[0][2],
+    //       cupScheduleB[0][0],
+    //       cupScheduleB[0][1],
+    //       cupScheduleB[0][2],
+    //       cupScheduleC[0][0],
+    //       cupScheduleC[0][1],
+    //       cupScheduleC[0][2],
+    //       cupScheduleD[0][0],
+    //       cupScheduleD[0][1],
+    //       cupScheduleD[0][2],
+    //     ],
+    //     [
+    //       cupScheduleA[1][0],
+    //       cupScheduleA[1][1],
+    //       cupScheduleA[1][2],
+    //       cupScheduleB[1][0],
+    //       cupScheduleB[1][1],
+    //       cupScheduleB[1][2],
+    //       cupScheduleC[1][0],
+    //       cupScheduleC[1][1],
+    //       cupScheduleC[1][2],
+    //       cupScheduleD[1][0],
+    //       cupScheduleD[1][1],
+    //       cupScheduleD[1][2],
+    //     ],
+    //   ];
+
+    //   for (let p = 0; p < 2; p++) {
+    //     for (let z = 0; z < 12; z++) {
+    //       console.log(cupSchedule[p][z]);
+    //     }
+    //   }
+
+    //   console.log(cupSchedule);
+
+    //   await interaction.followUp(
+    //     "Sorteo realizado con Exito! Recuerda utilizar el comando de $fecha n para visualizar los partidos de la fecha."
+    //   );
+
+    //   fs.writeFileSync(
+    //     "./src/calendar/t9maradei.json",
+    //     JSON.stringify(cupSchedule),
+    //     (err) => {
+    //       if (err) {
+    //         console.log(err);
+    //         interaction.followUp(err);
+    //       }
+    //     }
+    //   );
+    // }
 
     if (format === "amateur") {
       let arr = [];
@@ -497,7 +511,7 @@ module.exports = {
       );
 
       fs.writeFileSync(
-        "./calendar/valen.json",
+        "./calendar/t9valen.json",
         JSON.stringify(cupSchedule),
         (err) => {
           if (err) {

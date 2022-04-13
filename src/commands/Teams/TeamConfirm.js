@@ -56,6 +56,7 @@ module.exports = {
         .addChoice("D1", "t9d1")
         .addChoice("D2", "t9d2")
         .addChoice("D3", "t9d3")
+        .addChoice("Copa Maradei", "t9maradei")
     )
     .addStringOption((option) =>
       option

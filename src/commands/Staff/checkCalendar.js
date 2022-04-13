@@ -21,6 +21,10 @@ module.exports = {
     const calendarsd1 = require(`${appRoot}/calendar/${torneo}d1.json`);
     const calendarsd2 = require(`${appRoot}/calendar/${torneo}d2.json`);
     const calendarsd3 = require(`${appRoot}/calendar/${torneo}d3.json`);
+    const calendarmaradeiA = require(`${appRoot}/calendar/${torneo}maradeiA.json`);
+    const calendarmaradeiB = require(`${appRoot}/calendar/${torneo}maradeiB.json`);
+    const calendarmaradeiC = require(`${appRoot}/calendar/${torneo}maradeiC.json`);
+    const calendarmaradeiD = require(`${appRoot}/calendar/${torneo}maradeiD.json`);
     const calendarvalen = require(`../../calendar/valen.json`);
     const calendaramateur = require(`../../calendar/amateur.json`);
     const startDate = client.config.tournament.startDate;
@@ -73,7 +77,7 @@ module.exports = {
           name2 = clublist[calendar[fecha - 1][p][1]].fullname;
         }
         embed.addField(
-          `Partido ${p + 1} (fecha ${fecha})`,
+          `Partido ${p + 1}`,
           `${emoji} ${name} vs ${name2} ${emoji2}`
         );
       }
@@ -93,8 +97,9 @@ module.exports = {
           emoji2 = clublist[calendar[fecha][p][1]].emoji;
           name2 = clublist[calendar[fecha][p][1]].fullname;
         }
+        //`Partido ${p + 1} (fecha ${fecha + 1})`,
         embed.addField(
-          `Partido ${p + 1} (fecha ${fecha + 1})`,
+          `Partido ${p + 1}`,
           `${emoji} ${name} vs ${name2} ${emoji2}`
         );
       }
@@ -105,30 +110,66 @@ module.exports = {
     let semana = fecha * 2;
     console.log(`Semana ${semana} (fecha ${fecha} * 2) timestamp ${sd1Date}`);
 
-    await calendarEmbed(
-      "D1",
-      "https://iossa-stats.herokuapp.com/tournaments/ligad1.png",
-      calendarsd1,
-      "ORANGE",
-      sd1Date,
-      semana - 1
-    );
-    await calendarEmbed(
-      "D2",
-      "https://iossa-stats.herokuapp.com/tournaments/ligad2.png",
-      calendarsd2,
-      "BLUE",
-      sd1Date,
-      semana - 1
-    );
-    await calendarEmbed(
-      "D3",
-      "https://iossa-stats.herokuapp.com/tournaments/ligad3.png",
-      calendarsd3,
-      "GREEN",
-      sd1Date,
-      semana - 1
-    );
+    if (fecha <= 3) {
+      await calendarEmbed(
+        "D1",
+        "https://iossa-stats.herokuapp.com/tournaments/ligad1.png",
+        calendarsd1,
+        "ORANGE",
+        sd1Date,
+        semana - 1
+      );
+      await calendarEmbed(
+        "D2",
+        "https://iossa-stats.herokuapp.com/tournaments/ligad2.png",
+        calendarsd2,
+        "BLUE",
+        sd1Date,
+        semana - 1
+      );
+      await calendarEmbed(
+        "D3",
+        "https://iossa-stats.herokuapp.com/tournaments/ligad3.png",
+        calendarsd3,
+        "GREEN",
+        sd1Date,
+        semana - 1
+      );
+    }
+    if (fecha >= 3) {
+      await calendarEmbed(
+        "Copa Maradei Grupo A",
+        "https://iossa-stats.herokuapp.com/tournaments/copamaradei.png",
+        calendarmaradeiA,
+        "ORANGE",
+        sd1Date,
+        semana - 4
+      );
+      await calendarEmbed(
+        "Copa Maradei Grupo B",
+        "https://iossa-stats.herokuapp.com/tournaments/copamaradei.png",
+        calendarmaradeiB,
+        "ORANGE",
+        sd1Date,
+        semana - 4
+      );
+      await calendarEmbed(
+        "Copa Maradei Grupo C",
+        "https://iossa-stats.herokuapp.com/tournaments/copamaradei.png",
+        calendarmaradeiC,
+        "ORANGE",
+        sd1Date,
+        semana - 4
+      );
+      await calendarEmbed(
+        "Copa Maradei Grupo D",
+        "https://iossa-stats.herokuapp.com/tournaments/copamaradei.png",
+        calendarmaradeiD,
+        "ORANGE",
+        sd1Date,
+        semana - 4
+      );
+    }
 
     // T8
     // if (fecha < 2) {

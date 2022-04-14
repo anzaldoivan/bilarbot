@@ -8,7 +8,7 @@ async function getFecha(teams, team, interaction, startDate) {
 
   // console.log(teams);
   // console.log("Testing Team Fecha");
-  console.log(teams[team.toUpperCase()]);
+  //console.log(teams[team.toUpperCase()]);
   // console.log("Fecha: " + fechaProfesional);
 
   if (!teams[team.toUpperCase()]) {

@@ -20,10 +20,7 @@ const client = new tmi.client(options);
 client.connect();
 
 client.on("connected", (address, port) => {
-  client.action(
-    process.env.CHANNEL_NAME,
-    `Hello, Gamers! Connected to ${address}:${port}`
-  );
+  client.action("ios_sa", `BilarBOT se ha conectado a Twitch correctamente.`);
 });
 
 client.on("chat", (target, ctx, message, self) => {
@@ -32,6 +29,7 @@ client.on("chat", (target, ctx, message, self) => {
 
   const commandName = message.trim();
 
+  console.log("DISPLAYING TARGET");
   console.log(target);
   console.log(ctx);
 
@@ -49,3 +47,19 @@ function rollDice() {
   const sides = 6;
   return Math.floor(Math.random() * sides) + 1;
 }
+
+function ping(target) {
+  client.say(target, `Ping!`);
+}
+
+function title(interaction, target, tournament, home, away) {
+  client.say(target, `!title [${tournament}] ${home} vs ${away}`);
+  interaction.followUp(
+    `El titulo del canal ${target} se ha cambiado a [${tournament}] ${home} vs ${away} correctamente.`
+  );
+}
+
+module.exports = {
+  ping,
+  title,
+};

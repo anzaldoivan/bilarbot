@@ -14,6 +14,7 @@ const year = date.getFullYear();
 const funcDate = require("../../utils/getFecha.js");
 const funcTeam = require("../../utils/getTeam.js");
 const perms = require(`${appRoot}/utils/Teams/CheckPerms.js`);
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 let config = require(`${appRoot}/Config/config.json`);
 const torneo = config.tournament.name;
 

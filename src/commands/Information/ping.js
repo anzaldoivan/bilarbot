@@ -11,8 +11,8 @@ module.exports = {
     // );
     // console.log(event);
     //await RoleManager.setRoles(interaction, client);
-    TwitchManager.ping("#ios_sa");
-    TwitchManager.ping("#ios_sa2");
+    // TwitchManager.ping("#ios_sa");
+    // TwitchManager.ping("#ios_sa2");
     await interaction.followUp("Pong!");
   },
 };

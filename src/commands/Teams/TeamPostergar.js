@@ -64,36 +64,51 @@ module.exports = {
     const team = interaction.options.getString("myteam");
     const otherteam = interaction.options.getString("team");
     const torneo = client.config.tournament.name;
-    decache(`../../Teams/${torneo}.json`);
-    const teams = require(`../../Teams/${torneo}.json`);
+    const teamsDB = await GetFromDB.getEverythingFrom("bilarbot", torneo);
+    const teams = teamsDB[0];
     const messageAuthor = interaction.member.user.id;
-    let week = funcDate.getFecha(
+    let week = await funcDate.getFecha(
       teams,
       team,
       interaction,
       client.config.tournament.startDate
     );
 
-    // Validation
-    if (!isCaptain(interaction, team)) return;
+    // Verifications
+    if (!perms.isCaptain(interaction, teams[team], week)) return;
 
     const embed = new MessageEmbed()
       .setTitle(`${teams[team].fullname} vs ${teams[otherteam].fullname}`)
       .setDescription("Postergar el partido.");
 
+    // const embed = new MessageEmbed()
+    //   .setTitle(`${teams[team].fullname} vs ${teams[otherteam].fullname}`)
+    //   .setDescription("Postergar el partido.");
+
+    // const row = new MessageActionRow().addComponents(
+    //   new teamselectMenu()
+    //     .setCustomId("postergar")
+    //     .setPlaceholder("Selecciona el menu para postergar el partido.")
+    //     .addOptions([
+    //       {
+    //         //label: `Postergar partido con ${teams[team].fullname}`,
+    //         label: `Postergar partido`,
+    //         description:
+    //           "Postergar el partido. Ignorar el mensaje para no confirmarlo.",
+    //         value: `${teams[otherteam][week].captain}/${teams[otherteam][week].subcaptain}/${team}/${otherteam}/${teams[otherteam][week].director}/${team}/${otherteam}/${week}`,
+    //       },
+    //     ])
+    // );
+    let string = `${teams[otherteam][week].captain}/${teams[otherteam][week].subcaptain}/${team}/${otherteam}/${teams[otherteam][week].director}/${team}/${otherteam}/${week}`;
     const row = new MessageActionRow().addComponents(
-      new teamselectMenu()
-        .setCustomId("postergar")
-        .setPlaceholder("Selecciona el menu para postergar el partido.")
-        .addOptions([
-          {
-            //label: `Postergar partido con ${teams[team].fullname}`,
-            label: `Postergar partido`,
-            description:
-              "Postergar el partido. Ignorar el mensaje para no confirmarlo.",
-            value: `${teams[otherteam][week].captain}/${teams[otherteam][week].subcaptain}/${team}/${otherteam}/${teams[otherteam][week].director}/${team}/${otherteam}/${week}`,
-          },
-        ])
+      new MessageButton()
+        .setCustomId(`confirmar/${string}`)
+        .setLabel("Confirmar")
+        .setStyle("SUCCESS"),
+      new MessageButton()
+        .setCustomId(`rechazar/${string}`)
+        .setLabel("Rechazar")
+        .setStyle("DANGER")
     );
     await interaction.editReply({ embeds: [embed], components: [row] });
     //console.log(`${otherteam} ${teams[otherteam][week].captain}`);

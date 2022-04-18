@@ -17,8 +17,8 @@ module.exports = {
         .setName("partido")
         .setDescription("Elija el partido a modificar.")
         .setRequired(true);
-      decache(`${appRoot}/src/calendar/matches.json`);
-      const matches = require(`${appRoot}/src/calendar/matches.json`);
+      decache(`${appRoot}/calendar/matches.json`);
+      const matches = require(`${appRoot}/calendar/matches.json`);
 
       const startDate = configuration.tournament.startDate;
       let currentFechaID = funcDate.getDate(startDate);

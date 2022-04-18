@@ -13,7 +13,7 @@ const month = date.getMonth() + 1;
 const year = date.getFullYear();
 const funcDate = require("../../utils/getFecha.js");
 const funcTeam = require("../../utils/getTeam.js");
-const perms = require("../../utils/Teams/CheckPerms.js");
+const perms = require(`${appRoot}//utils/Teams/CheckPerms.js`);
 let config = require(`${appRoot}/Config/config.json`);
 const torneo = config.tournament.name;
 

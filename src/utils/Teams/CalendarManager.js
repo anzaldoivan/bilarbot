@@ -18,6 +18,21 @@ function updateFile(interaction, file, newFile) {
   );
 }
 
+async function syncMatches() {
+  let matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "matches");
+  let matches = matchesDB[0];
+
+  fs.writeFileSync(
+    `./src/calendar/matches.json`,
+    JSON.stringify(matches),
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
+    }
+  );
+}
+
 async function confirmMatch(
   interaction,
   client,
@@ -114,4 +129,4 @@ async function confirmMatch(
     });
 }
 
-module.exports = { confirmMatch };
+module.exports = { confirmMatch, syncMatches };

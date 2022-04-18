@@ -41,7 +41,7 @@ module.exports = {
         .setName("team")
         .setDescription("Elija el Equipo Rival.")
         .setRequired(true);
-      const teamsOptions = require(`../../Teams/verano2022.json`);
+      const teamsOptions = require(`../../Teams/${torneo}.json`);
       for (var key in teamsOptions) {
         if (teamsOptions.hasOwnProperty(key)) {
           var val = teamsOptions[key];

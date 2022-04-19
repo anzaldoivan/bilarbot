@@ -78,13 +78,13 @@ module.exports = {
       client.channels.cache
         .get("902547421962334219")
         .send(
-          `${emojiUpdate} El jugador <@${user}> se le ha asignado el SteamID ${steamString}`
+          `${emojiUpdate} El tribunal de disciplina le ha asignado al jugador <@${user}> se le ha asignado el SteamID ${steamString}`
         );
     } else {
       client.channels.cache
         .get("902547421962334219")
         .send(
-          `${emojiUpdate} El jugador <@${user}> se le ha asignado el SteamID ${steamString}`
+          `${emojiUpdate} El tribunal de disciplina le ha asignado al <@${user}> se le ha asignado el SteamID ${steamString}`
         );
     }
 

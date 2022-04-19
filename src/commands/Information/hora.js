@@ -6,7 +6,9 @@ const funcDate = require("../../utils/getDate.js");
 const funcMatches = require("../../utils/getMatches.js");
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("nashe").setDescription("NASHE"),
+  data: new SlashCommandBuilder()
+    .setName("hora")
+    .setDescription("Ver hora actual."),
   async execute(interaction, client) {
     const hora = DateTime.local;
     const horaARG = hora.setZone("Argentina/Buenos_Aires");

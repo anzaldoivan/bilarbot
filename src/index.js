@@ -1,7 +1,10 @@
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
+const { Settings, DateTime } = require("luxon");
+Settings.defaultZone = "America/Argentina/Buenos_Aires";
 global.appRoot = path.resolve(__dirname);
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,

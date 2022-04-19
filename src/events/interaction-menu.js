@@ -75,6 +75,42 @@ module.exports = {
       }
     }
 
+    if (captainSplit[0] == "rechazar") {
+      await interaction.deferUpdate();
+      if (
+        member.roles.cache.has("458075157253062657") ||
+        member.roles.cache.has("905584692588314675")
+      ) {
+        team = captainSplit[1];
+        otherteam = captainSplit[2];
+        week = captainSplit[3];
+        horario = captainSplit[4];
+        matchDate = captainSplit[5];
+        torneo = captainSplit[6];
+
+        if (!perms.isCaptain(interaction, messages[otherteam], week))
+          return interaction.member
+            .send(
+              `Solo los capitanes de ${otherteam} pueden rechazar este partido.`
+            )
+            .catch((error) => {
+              console.log(`User ${newPresence.user.id} has blocked DM`);
+            });
+
+        CalendarManager.rejectMatch(
+          interaction,
+          client,
+          messages,
+          team,
+          otherteam,
+          week,
+          matchDate,
+          horario,
+          torneo
+        );
+      }
+    }
+
     if (interaction.customId == "postergar") {
       captainSplit = interaction.values[0].split("/");
 

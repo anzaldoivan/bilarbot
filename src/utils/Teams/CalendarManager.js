@@ -33,6 +33,35 @@ async function syncMatches() {
   );
 }
 
+async function rejectMatch(
+  interaction,
+  client,
+  messages,
+  team,
+  otherteam,
+  week,
+  matchDate,
+  horario,
+  torneo
+) {
+  let string = `El partido entre ${messages[team].emoji} ${messages[team].fullname} vs ${messages[otherteam].fullname} ${messages[otherteam].emoji} el dia ${matchDate} a las ${horario}hs por la ${torneo} ha sido rechazado`;
+  interaction.followUp("Partido rechazado.");
+  client.users.cache
+    .get(messages[team][week].captain)
+    .send(`${string}`)
+    .catch((error) => {
+      console.log(`User  has blocked DM`);
+    });
+  client.users.cache
+    .get(messages[otherteam][week].captain)
+    .send(`${string}`)
+    .catch((error) => {
+      console.log(`User  has blocked DM`);
+    });
+  interaction.followUp(`${string}`);
+  return interaction.deleteReply();
+}
+
 async function confirmMatch(
   interaction,
   client,
@@ -129,4 +158,4 @@ async function confirmMatch(
     });
 }
 
-module.exports = { confirmMatch, syncMatches };
+module.exports = { confirmMatch, syncMatches, rejectMatch };

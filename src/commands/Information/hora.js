@@ -11,8 +11,7 @@ module.exports = {
     .setDescription("Ver hora actual."),
   async execute(interaction, client) {
     const hora = DateTime.local;
-    const horaARG = hora.setZone("Argentina/Buenos_Aires");
 
-    await interaction.followUp(`Hora del SV: ${hora}\nHora local: ${horaARG}`);
+    await interaction.followUp(`Hora del SV: ${hora});
   },
 };

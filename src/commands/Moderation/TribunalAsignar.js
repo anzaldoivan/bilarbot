@@ -12,7 +12,7 @@ const torneo = config.tournament.name;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("tribunal")
+    .setName("tribunalsteam")
     .setDescription(
       "Modificar postergaciones, liberaciones y otros datos de un equipo."
     )

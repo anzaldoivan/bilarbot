@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const Discord = require("discord.js");
-const { DateTime } = require("luxon");
+const { Settings, DateTime } = require("luxon");
 const decache = require("decache");
 const funcDate = require("../../utils/getDate.js");
 const funcMatches = require("../../utils/getMatches.js");

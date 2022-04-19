@@ -10,7 +10,7 @@ module.exports = {
     .setName("hora")
     .setDescription("Ver hora actual."),
   async execute(interaction, client) {
-    //Settings.defaultZone = "Argentina/Buenos_Aires";
+    Settings.defaultZone = "Argentina/Buenos_Aires";
     const hora = DateTime.local();
     await interaction.followUp(`Hora del SV: ${hora}`);
   },

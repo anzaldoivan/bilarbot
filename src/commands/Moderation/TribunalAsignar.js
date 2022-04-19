@@ -13,9 +13,7 @@ const torneo = config.tournament.name;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("tribunalsteam")
-    .setDescription(
-      "Modificar postergaciones, liberaciones y otros datos de un equipo."
-    )
+    .setDescription("Modificar SteamID de un jugador.")
     .addUserOption((option) =>
       option
         .setName("usuario")
@@ -33,9 +31,9 @@ module.exports = {
   async execute(interaction, client) {
     let dato = interaction.options.getString("dato");
     const steamString = `[${CheckPerms.getSteam(
-      users[messages[team][week].players[key]].steam
+      dato
     )}](https://iossa-stats.herokuapp.com/jugador/${CheckPerms.getSteam(
-      users[messages[team][week].players[key]].steam
+      dato
     )})`;
     let user = interaction.options
       .getUser("usuario")

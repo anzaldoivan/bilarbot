@@ -90,6 +90,8 @@ module.exports = {
 
     users[user].steam = dato;
 
+    interaction.followUp("Acción realizada con exito.");
+
     await GetFromDB.updateDb("bilarbot", "users", users);
   },
 };

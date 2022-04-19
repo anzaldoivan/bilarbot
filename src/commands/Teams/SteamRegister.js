@@ -74,8 +74,9 @@ module.exports = {
         .send(
           `${emojiUpdate} El jugador <@${user}> se le ha asignado su Steam ID.`
         );
-      interaction.followUp("Registro realizado con exito.");
     }
+
+    interaction.followUp("Registro realizado con exito.");
 
     await GetFromDB.updateDb("bilarbot", "users", users);
   },

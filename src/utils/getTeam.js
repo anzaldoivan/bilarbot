@@ -140,11 +140,16 @@ async function getTeam(messages, team, week, interaction, config) {
             steam = CheckPerms.getSteam(
               users[messages[team][week].players[key]].steam
             );
+            // steam = `[${CheckPerms.getSteam(
+            //   users[messages[team][week].players[key]].steam
+            // )}](http://steamcommunity.com/profiles/${
+            //   users[messages[team][week].players[key]].steam
+            // })`;
             steam = `[${CheckPerms.getSteam(
               users[messages[team][week].players[key]].steam
-            )}](http://steamcommunity.com/profiles/${
+            )}](https://iossa-stats.herokuapp.com/jugador/${CheckPerms.getSteam(
               users[messages[team][week].players[key]].steam
-            })`;
+            )})`;
           }
           //playerstring += `<@${messages[team][week].players[key]}> (${steam})\n`;
 

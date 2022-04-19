@@ -45,7 +45,6 @@ async function rejectMatch(
   torneo
 ) {
   let string = `El partido entre ${messages[team].emoji} ${messages[team].fullname} vs ${messages[otherteam].fullname} ${messages[otherteam].emoji} el dia ${matchDate} a las ${horario}hs por la ${torneo} ha sido rechazado`;
-  interaction.followUp("Partido rechazado.");
   client.users.cache
     .get(messages[team][week].captain)
     .send(`${string}`)

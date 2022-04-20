@@ -53,10 +53,10 @@ module.exports = {
         .setName("torneo")
         .setDescription("Escriba el torneo a jugar.")
         .setRequired(true)
-        .addChoice("D1", "t9d1")
-        .addChoice("D2", "t9d2")
-        .addChoice("D3", "t9d3")
-        .addChoice("Copa Maradei", "t9maradei")
+        .addChoice("D1", "d1")
+        .addChoice("D2", "d2")
+        .addChoice("D3", "d3")
+        .addChoice("Copa Maradei", "maradei")
     )
     .addStringOption((option) =>
       option
@@ -88,7 +88,9 @@ module.exports = {
     const dia = interaction.options.getString("dia");
     const teamsDB = await GetFromDB.getEverythingFrom("bilarbot", torneo);
     const teams = teamsDB[0];
-    const torneoEmoji = "<:verano20:651632603295907843>";
+    const torneoEmoji = client.emojis.cache.get(
+      client.config.emojis[competencia]
+    );
     const matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "matches");
     const matches = matchesDB[0];
     const startDate = client.config.tournament.startDate;

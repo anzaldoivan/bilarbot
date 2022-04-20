@@ -18,13 +18,8 @@ function updateFile(interaction, file, newFile) {
 }
 
 async function manageNicks(client, interaction, user, team, mode) {
-  var nickold;
-  try {
-    nickold = interaction.guild.members.cache.get(user.toString()).nickname;
-  } catch (error) {
-    console.log("User is no longer on discord");
-    return;
-  }
+  if (!interaction.guild.members.cache.get(user.toString())) return;
+  var nickold = interaction.guild.members.cache.get(user.toString()).nickname;
   var nick;
   var fullNick = "";
   if (nickold == null) {

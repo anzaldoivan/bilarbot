@@ -18,6 +18,7 @@ function updateFile(interaction, file, newFile) {
 }
 
 async function manageNicks(client, interaction, user, team, mode) {
+  // Return
   if (!interaction.guild.members.cache.get(user.toString())) return;
   var nickold = interaction.guild.members.cache.get(user.toString()).nickname;
   var nick;

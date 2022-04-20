@@ -100,6 +100,7 @@ function setPerms(json) {
 }
 
 async function updateUser(interaction, client, user, division) {
+  if (!interaction.guild.members.cache.get(user.toString())) return;
   const usersDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
   const users = await usersDB[0];
   let steamID = getSteam(users[user].steam);

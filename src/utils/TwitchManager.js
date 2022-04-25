@@ -60,7 +60,6 @@ function title(interaction, target, tournament, home, away) {
 }
 
 async function createPrediction(target, title, home, away) {
-  const location = window.location.hostname;
   const settings = {
     method: "POST",
     headers: {
@@ -89,6 +88,7 @@ async function createPrediction(target, title, home, away) {
       settings
     );
     const data = await fetchResponse.json();
+    console.log(data);
     return data;
   } catch (e) {
     return e;

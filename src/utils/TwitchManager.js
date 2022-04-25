@@ -112,20 +112,19 @@ async function createPrediction(target, title, home, away) {
     headers: {
       Authorization: `Bearer ${config.twitch.accessToken}`,
       "Client-Id": `${config.twitch.ClientId}`,
-      "Content-Type": "application/json",
     },
     body: {
-      "broadcaster_id": "232208394",
-      "title": "Any leeks in the stream?",
-      "outcomes": [
+      broadcaster_id: "232208394",
+      title: "Any leeks in the stream?",
+      outcomes: [
         {
-          "title": "Yes, give it time."
+          title: "Yes, give it time.",
         },
         {
-          "title": "Definitely not."
-        }
+          title: "Definitely not.",
+        },
       ],
-      "prediction_window": 120
+      prediction_window: 120,
     },
   };
   try {

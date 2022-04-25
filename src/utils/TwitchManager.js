@@ -77,6 +77,7 @@ function getTwitchAuthorization() {
 
 async function getData(endpoint) {
   let authorizationObject = await getTwitchAuthorization();
+  console.log(authorizationObject);
   let { access_token, expires_in, token_type } = authorizationObject;
 
   //token_type first letter must be uppercase

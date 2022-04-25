@@ -136,6 +136,7 @@ async function createPrediction(target, title, home, away) {
     console.log(data);
     return data;
   } catch (e) {
+    console.log(e);
     return e;
   }
 }

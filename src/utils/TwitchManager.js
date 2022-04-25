@@ -1,4 +1,4 @@
-const TwitchJs = require("twitch-js");
+const TwitchJs = require("twitch-js").default;
 const tmi = require("tmi.js");
 const config = require(`${appRoot}/Config/config.json`);
 const clientID = config.twitch.id;

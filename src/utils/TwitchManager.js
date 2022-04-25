@@ -1,7 +1,11 @@
+const TwitchJs = require("twitch-js");
+import fetchUtil from "twitch-js/lib/utils/fetch";
 const tmi = require("tmi.js");
 const config = require(`${appRoot}/Config/config.json`);
 const clientID = config.twitch.id;
 const clientSecret = config.twitch.secret;
+const token = "2cgpxpkl0dcozpys2m0ssre85gtwyf";
+const { api } = new TwitchJs({ token, clientID });
 
 const options = {
   options: {
@@ -128,6 +132,10 @@ async function createPrediction(target, title, home, away) {
   };
   try {
     console.log("Creating Twitch Prediction");
+    api.get("streams", { search: { game_id: "1234" } }).then((response) => {
+      // Do stuff with response ...
+      console.log(response);
+    });
     await getData("https://api.twitch.tv/helix/streams");
     await getData("https://api.twitch.tv/helix/users");
     const fetchResponse = await fetch(

@@ -1,5 +1,7 @@
 const tmi = require("tmi.js");
 const config = require(`${appRoot}/Config/config.json`);
+const clientID = config.twitch.id;
+const clientSecret = config.twitch.secret;
 
 const options = {
   options: {
@@ -59,6 +61,45 @@ function title(interaction, target, tournament, home, away) {
   );
 }
 
+function getTwitchAuthorization() {
+  let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
+
+  return fetch(url, {
+    method: "POST",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
+}
+
+async function getData(endpoint) {
+  let authorizationObject = await getTwitchAuthorization();
+  let { access_token, expires_in, token_type } = authorizationObject;
+
+  //token_type first letter must be uppercase
+  token_type =
+    token_type.substring(0, 1).toUpperCase() +
+    token_type.substring(1, token_type.length);
+
+  let authorization = `${token_type} ${access_token}`;
+
+  let headers = {
+    authorization,
+    "Client-Id": clientID,
+  };
+
+  fetch(endpoint, {
+    headers,
+  })
+    .then((res) => res.json())
+    .then((data) => showData(data));
+}
+
+function showData(data) {
+  console.log(data);
+}
+
 async function createPrediction(target, title, home, away) {
   const settings = {
     method: "POST",
@@ -82,8 +123,8 @@ async function createPrediction(target, title, home, away) {
     },
   };
   try {
-    console.log(client);
-    console.log("Finished client log");
+    await getData("https://api.twitch.tv/helix/streams");
+    await getData("https://api.twitch.tv/helix/users");
     const fetchResponse = await fetch(
       `https://api.twitch.tv/helix/predictions`,
       settings

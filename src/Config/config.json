@@ -54,7 +54,9 @@
     "tournament_channel": "826165028927307796",
     "twitch": {
         "username": "BilarBOT",
-        "password": "oauth:2cgpxpkl0dcozpys2m0ssre85gtwyf"
+        "password": "oauth:2cgpxpkl0dcozpys2m0ssre85gtwyf",
+        "id": "4su9myw7z4ur8g3kbqantuhpt1ajsj",
+        "secret": "g1x54nxbs2lq9g1o38ugfj4zvbk42j"
     },
     "webhookID": "780567246804221953",
     "webhookTOKEN": "Ca_34E6d2yn4ib4jPpET9Lerxh3qu09E3INDAH0h_xC9iZ5zDoyJkKdMvcXAS5UoFbkU"

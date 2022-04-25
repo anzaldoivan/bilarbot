@@ -5,7 +5,7 @@ const clientID = config.twitch.id;
 const clientSecret = config.twitch.secret;
 const token = "2cgpxpkl0dcozpys2m0ssre85gtwyf";
 const XDID = "4su9myw7z4ur8g3kbqantuhpt1ajsj";
-const { api } = new TwitchJs({ token, XDID });
+const { api } = new TwitchJs({ token });
 
 const options = {
   options: {

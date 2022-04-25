@@ -25,7 +25,7 @@ module.exports = {
       //console.log(calendar[fecha]);
       for (var key in matches) {
         if (matches.hasOwnProperty(key) && key != "_id") {
-          console.log(key);
+          //console.log(key);
           var val = matches[key];
           for (var key2 in val) {
             if (val.hasOwnProperty(key2)) {

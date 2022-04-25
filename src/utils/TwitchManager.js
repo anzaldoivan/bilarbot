@@ -59,7 +59,44 @@ function title(interaction, target, tournament, home, away) {
   );
 }
 
+async function createPrediction(target, title, home, away) {
+  const location = window.location.hostname;
+  const settings = {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer cfabdegwdoklmawdzdo98xt2fo512y",
+      "Client-Id": "uo6dggojyb8d6soh92zknwmi5ej1q2",
+      "Content-Type": "application/json",
+    },
+    body: {
+      broadcaster_id: "141981764",
+      title: title,
+      outcomes: [
+        {
+          title: home,
+        },
+        {
+          title: away,
+        },
+      ],
+      prediction_window: 180,
+    },
+  };
+  try {
+    console.log(client);
+    const fetchResponse = await fetch(
+      `https://api.twitch.tv/helix/predictions`,
+      settings
+    );
+    const data = await fetchResponse.json();
+    return data;
+  } catch (e) {
+    return e;
+  }
+}
+
 module.exports = {
   ping,
   title,
+  createPrediction,
 };

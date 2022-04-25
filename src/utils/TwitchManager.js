@@ -107,24 +107,26 @@ function showData(data) {
 }
 
 async function createPrediction(target, title, home, away) {
+  const jsonData = {
+    broadcaster_id: "232208394",
+    title: "Any leeks in the stream?",
+    outcomes: [
+      {
+        title: "Yes, give it time.",
+      },
+      {
+        title: "Definitely not.",
+      },
+    ],
+    prediction_window: 120,
+  };
   const settings = {
     method: "POST",
+    body: JSON.stringify(jsonData),
     headers: {
       Authorization: `Bearer ${config.twitch.accessToken}`,
       "Client-Id": `${config.twitch.ClientId}`,
-    },
-    body: {
-      broadcaster_id: "232208394",
-      title: "Any leeks in the stream?",
-      outcomes: [
-        {
-          title: "Yes, give it time.",
-        },
-        {
-          title: "Definitely not.",
-        },
-      ],
-      prediction_window: 120,
+      "Content-Type": "application/json",
     },
   };
   try {

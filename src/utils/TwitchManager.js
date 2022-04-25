@@ -3,9 +3,6 @@ const tmi = require("tmi.js");
 const config = require(`${appRoot}/Config/config.json`);
 const clientID = config.twitch.id;
 const clientSecret = config.twitch.secret;
-const token = "2cgpxpkl0dcozpys2m0ssre85gtwyf";
-const XDID = "4su9myw7z4ur8g3kbqantuhpt1ajsj";
-const { api } = new TwitchJs({ token });
 
 const options = {
   options: {
@@ -112,12 +109,12 @@ async function createPrediction(target, title, home, away) {
   const settings = {
     method: "POST",
     headers: {
-      Authorization: "Bearer 2cgpxpkl0dcozpys2m0ssre85gtwyf",
-      "Client-Id": "uo6dggojyb8d6soh92zknwmi5ej1q2",
+      Authorization: `Bearer ${config.twitch.accessToken}`,
+      "Client-Id": `${config.twitch.ClientId}`,
       "Content-Type": "application/json",
     },
     body: {
-      broadcaster_id: "141981764",
+      broadcaster_id: `${config.twitch.id}`,
       title: title,
       outcomes: [
         {
@@ -131,13 +128,6 @@ async function createPrediction(target, title, home, away) {
     },
   };
   try {
-    console.log("Creating Twitch Prediction");
-    api.get("streams", { search: { game_id: "1234" } }).then((response) => {
-      // Do stuff with response ...
-      console.log(response);
-    });
-    await getData("https://api.twitch.tv/helix/streams");
-    await getData("https://api.twitch.tv/helix/users");
     const fetchResponse = await fetch(
       `https://api.twitch.tv/helix/predictions`,
       settings

@@ -100,6 +100,7 @@ async function getData(endpoint) {
 }
 
 function showData(data) {
+  console.log("Showing endpoint Data");
   console.log(data);
 }
 

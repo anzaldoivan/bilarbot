@@ -1,5 +1,4 @@
 const TwitchJs = require("twitch-js");
-import fetchUtil from "twitch-js/lib/utils/fetch";
 const tmi = require("tmi.js");
 const config = require(`${appRoot}/Config/config.json`);
 const clientID = config.twitch.id;

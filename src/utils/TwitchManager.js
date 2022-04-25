@@ -63,12 +63,14 @@ function title(interaction, target, tournament, home, away) {
 
 function getTwitchAuthorization() {
   let url = `https://id.twitch.tv/oauth2/token?client_id=${clientID}&client_secret=${clientSecret}&grant_type=client_credentials`;
+  console.log("Requesting Twitch Authorization");
 
   return fetch(url, {
     method: "POST",
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       return data;
     });
 }
@@ -123,6 +125,7 @@ async function createPrediction(target, title, home, away) {
     },
   };
   try {
+    console.log("Creating Twitch Prediction");
     await getData("https://api.twitch.tv/helix/streams");
     await getData("https://api.twitch.tv/helix/users");
     const fetchResponse = await fetch(

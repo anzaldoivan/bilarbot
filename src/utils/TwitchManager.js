@@ -107,8 +107,6 @@ function showData(data) {
 }
 
 async function createPrediction(target, title, home, away) {
-  let jsonString = `{broadcaster_id:${config.twitch.id},title:"Anyleeksinthestream?",outcomes:[{title:"Yes,giveittime.",},{title:"Definitelynot.",},],prediction_window:180}`;
-  console.log(JSON.parse(jsonString));
   const settings = {
     method: "POST",
     headers: {
@@ -116,7 +114,19 @@ async function createPrediction(target, title, home, away) {
       "Client-Id": `${config.twitch.ClientId}`,
       "Content-Type": "application/json",
     },
-    body: JSON.parse(jsonString),
+    body: {
+      "broadcaster_id": "232208394",
+      "title": "Any leeks in the stream?",
+      "outcomes": [
+        {
+          "title": "Yes, give it time."
+        },
+        {
+          "title": "Definitely not."
+        }
+      ],
+      "prediction_window": 120
+    },
   };
   try {
     const fetchResponse = await fetch(

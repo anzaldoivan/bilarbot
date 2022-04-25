@@ -1,5 +1,6 @@
 const TwitchJs = require("twitch-js").default;
 const tmi = require("tmi.js");
+const fetch = require("node-fetch");
 const config = require(`${appRoot}/Config/config.json`);
 const clientID = config.twitch.id;
 const clientSecret = config.twitch.secret;

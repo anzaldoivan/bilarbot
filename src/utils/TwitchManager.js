@@ -63,7 +63,7 @@ async function createPrediction(target, title, home, away) {
   const settings = {
     method: "POST",
     headers: {
-      Authorization: "Bearer cfabdegwdoklmawdzdo98xt2fo512y",
+      Authorization: "Bearer 2cgpxpkl0dcozpys2m0ssre85gtwyf",
       "Client-Id": "uo6dggojyb8d6soh92zknwmi5ej1q2",
       "Content-Type": "application/json",
     },
@@ -83,6 +83,7 @@ async function createPrediction(target, title, home, away) {
   };
   try {
     console.log(client);
+    console.log("Finished client log");
     const fetchResponse = await fetch(
       `https://api.twitch.tv/helix/predictions`,
       settings

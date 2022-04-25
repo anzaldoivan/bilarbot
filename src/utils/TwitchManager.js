@@ -115,16 +115,16 @@ async function createPrediction(target, title, home, away) {
     },
     body: {
       broadcaster_id: `${config.twitch.id}`,
-      title: title,
+      title: "Any leeks in the stream?",
       outcomes: [
         {
-          title: home,
+          title: "Yes, give it time.",
         },
         {
-          title: away,
+          title: "Definitely not.",
         },
       ],
-      prediction_window: 180,
+      prediction_window: 120,
     },
   };
   try {

@@ -109,16 +109,16 @@ function showData(data) {
 async function createPrediction(target, title, home, away) {
   const jsonData = {
     broadcaster_id: "232208394",
-    title: "Any leeks in the stream?",
+    title: "¿Quien gana el partido?",
     outcomes: [
       {
-        title: "Yes, give it time.",
+        title: home,
       },
       {
-        title: "Definitely not.",
+        title: away,
       },
     ],
-    prediction_window: 120,
+    prediction_window: 180,
   };
   const settings = {
     method: "POST",

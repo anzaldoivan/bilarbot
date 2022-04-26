@@ -64,8 +64,6 @@ module.exports = {
     // XD
     console.log("Showing response");
     console.log(response);
-    console.log(response[0]);
-    console.log(response.data);
     console.log(response.data[0]);
     embed = new Discord.MessageEmbed()
       .setTitle(`${response.data.title}`)
@@ -75,11 +73,11 @@ module.exports = {
       )
       .addField(
         `Resultado 1`,
-        `${response.data.outcomes[0].title} (${response.data.outcomes[0].id})`
+        `${response.data[0].outcomes[0].title} (${response.data[0].outcomes[0].id})`
       )
       .addField(
         `Resultado 1`,
-        `${response.data.outcomes[1].title} (${response.data.outcomes[1].id})`
+        `${response.data[0].outcomes[1].title} (${response.data[0].outcomes[1].id})`
       );
     interaction.followUp({ embeds: [embed] });
   },

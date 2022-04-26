@@ -61,20 +61,20 @@ module.exports = {
       home,
       away
     );
-    console.log(response[0]);
+    console.log(response.data);
     embed = new Discord.MessageEmbed()
-      .setTitle(`${response[0].title}`)
+      .setTitle(`${response.data.title}`)
       .setColor("#000000")
       .setThumbnail(
         `https://seeklogo.com/images/T/twitch-tv-logo-51C922E0F0-seeklogo.com.png`
       )
       .addField(
         `Resultado 1`,
-        `${response[0].outcomes[0].title} (${response[0].outcomes[0].id})`
+        `${response.data.outcomes[0].title} (${response.data.outcomes[0].id})`
       )
       .addField(
         `Resultado 1`,
-        `${response[0].outcomes[1].title} (${response[0].outcomes[1].id})`
+        `${response.data.outcomes[1].title} (${response.data.outcomes[1].id})`
       );
     interaction.followUp({ embeds: [embed] });
   },

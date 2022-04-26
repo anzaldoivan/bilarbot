@@ -61,6 +61,7 @@ module.exports = {
       home,
       away
     );
+    // XD
     console.log("Showing response");
     console.log(response);
     console.log(response[0]);

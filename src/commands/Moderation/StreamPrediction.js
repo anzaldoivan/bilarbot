@@ -61,6 +61,7 @@ module.exports = {
       home,
       away
     );
+    console.log(response[0]);
     embed = new Discord.MessageEmbed()
       .setTitle(`${response[0].title}`)
       .setColor("#000000")

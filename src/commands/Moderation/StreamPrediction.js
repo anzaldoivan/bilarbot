@@ -16,7 +16,6 @@ module.exports = {
         .setDescription("Elija el canal donde enviar el comando.")
         .setRequired(true)
         .addChoice("IOS_SA", "#ios_sa")
-        .addChoice("IOS_SA2", "#ios_sa2")
     )
     .addStringOption((option) => {
       option
@@ -66,7 +65,7 @@ module.exports = {
     console.log(response);
     console.log(response.data[0]);
     embed = new Discord.MessageEmbed()
-      .setTitle(`${response.data.title}`)
+      .setTitle(`${response.data[0].title} (${response.data[0].id})`)
       .setColor("#000000")
       .setThumbnail(
         `https://seeklogo.com/images/T/twitch-tv-logo-51C922E0F0-seeklogo.com.png`

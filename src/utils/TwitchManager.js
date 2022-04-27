@@ -143,8 +143,39 @@ async function createPrediction(target, title, home, away) {
   }
 }
 
+async function endPrediction(id, result) {
+  const jsonData = {
+    broadcaster_id: "232208394",
+    id: id,
+    status: "RESOLVED",
+    winning_outcome_id: result,
+  };
+  const settings = {
+    method: "PATCH",
+    body: JSON.stringify(jsonData),
+    headers: {
+      Authorization: `Bearer ${config.twitch.accessToken}`,
+      "Client-Id": `${config.twitch.ClientId}`,
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const fetchResponse = await fetch(
+      `https://api.twitch.tv/helix/predictions`,
+      settings
+    );
+    const data = await fetchResponse.json();
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
 module.exports = {
   ping,
   title,
   createPrediction,
+  endPrediction,
 };

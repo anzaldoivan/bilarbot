@@ -30,7 +30,6 @@ module.exports = {
     const usersDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
     const teams = await teamsDB[0];
     const users = await usersDB[0];
-    console.log(users);
 
     if (steamID.toString().length != 17) {
       console.log(steamID.toString().length);
@@ -40,10 +39,12 @@ module.exports = {
       return;
     }
 
+    console.log("Checking users");
     for (var key in users) {
+      console.log(key);
       if (users.hasOwnProperty(key) && key != "_id") {
-        //console.log(key);
         var val = users[key];
+        console.log(val);
         if (val.key == "steamID") {
           interaction.followUp(
             `El SteamID que escribio ya fue asignado al usuario <@${key}>.`

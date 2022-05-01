@@ -128,7 +128,7 @@ module.exports = {
       client.channels.cache
         .get("902547421962334219")
         .send(
-          `${emojiUpdate} El jugador <@${capitan}> ha sido designado como el nuevo subcapitan de ${
+          `${emojiUpdate} El jugador <@${capitan}> ha sido designado como el nuevo capitan de ${
             teams[team.toUpperCase()].fullname
           }`
         );

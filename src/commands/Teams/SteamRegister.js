@@ -30,6 +30,7 @@ module.exports = {
     const usersDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
     const teams = await teamsDB[0];
     const users = await usersDB[0];
+    console.log(users);
 
     if (steamID.toString().length != 17) {
       console.log(steamID.toString().length);
@@ -37,6 +38,19 @@ module.exports = {
         `Usted debe escribir un SteamID valido de 17 caracteres. Ejemplo: 76561198829366232`
       );
       return;
+    }
+
+    for (var key in users) {
+      if (users.hasOwnProperty(key) && key != "_id") {
+        //console.log(key);
+        var val = users[key];
+        if (val.key == "steamID") {
+          interaction.followUp(
+            `El SteamID que escribio ya fue asignado al usuario <@${key}>.`
+          );
+          return;
+        }
+      }
     }
 
     if (users[user]) {

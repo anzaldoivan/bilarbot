@@ -41,11 +41,10 @@ module.exports = {
 
     console.log("Checking users");
     for (var key in users) {
-      console.log(key);
       if (users.hasOwnProperty(key) && key != "_id") {
         var val = users[key];
-        console.log(val.steam);
-        if (val.steam == "steamID") {
+        if (val.steam == steamID) {
+          console.log(`User Steam: ${val.steam} / register steam: ${steamID}`);
           interaction.followUp(
             `El SteamID que escribio ya fue asignado al usuario <@${key}>.`
           );

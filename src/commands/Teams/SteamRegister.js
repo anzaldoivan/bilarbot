@@ -44,8 +44,8 @@ module.exports = {
       console.log(key);
       if (users.hasOwnProperty(key) && key != "_id") {
         var val = users[key];
-        console.log(val);
-        if (val.key == "steamID") {
+        console.log(val.steam);
+        if (val.steam == "steamID") {
           interaction.followUp(
             `El SteamID que escribio ya fue asignado al usuario <@${key}>.`
           );

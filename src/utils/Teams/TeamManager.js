@@ -145,6 +145,10 @@ async function transferPlayerDB(
   const torneo = client.config.tournament.name;
   const emojiTransfer = client.emojis.cache.get("954174577142030366");
   let stringFichaje = "fichado";
+  if (mode == "emergencia" && teams[team.toUpperCase()][week].emergency <= 0) {
+    interaction.followUp(`Te has quedado sin fichajes de emergencia.`);
+    return;
+  }
   if (mode == "emergencia") {
     stringFichaje += " de emergencia";
     teams[team.toUpperCase()][week].emergency -= 1;

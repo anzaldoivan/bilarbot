@@ -33,20 +33,24 @@ module.exports = {
     const title = "";
 
     let response = await TwitchManager.endPrediction(id, result);
+    let ganador, participantes, puntos;
     embed = new Discord.MessageEmbed()
       .setTitle(`${response.data[0].title}`)
       .setColor("#000000")
       .setThumbnail(
         `https://seeklogo.com/images/T/twitch-tv-logo-51C922E0F0-seeklogo.com.png`
       )
-      .addField(`Resultado`, `${response.data[0].outcomes[0].title}`)
+      .addField(
+        `Resultado`,
+        `${response.data[0].outcomes[0].title} vs ${response.data[0].outcomes[1].title}`
+      )
       .addField(
         `Usuarios que participaron`,
-        `${response.data[0].outcomes[0].users}`
+        `${response.data[0].outcomes[0].users} (${response.data[0].outcomes[0].title}) / ${response.data[0].outcomes[1].users} (${response.data[0].outcomes[1].title})`
       )
       .addField(
         `Puntos a repartir`,
-        `${response.data[0].outcomes[0].channel_points}`
+        `${response.data[0].outcomes[0].channel_points} (${response.data[0].outcomes[0].title}) / ${response.data[0].outcomes[1].channel_points} (${response.data[0].outcomes[1].title})`
       );
     interaction.followUp({ embeds: [embed] });
   },

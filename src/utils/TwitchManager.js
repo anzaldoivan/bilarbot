@@ -118,7 +118,7 @@ async function createPrediction(target, title, home, away) {
         title: away,
       },
     ],
-    prediction_window: 180,
+    prediction_window: 200,
   };
   const settings = {
     method: "POST",

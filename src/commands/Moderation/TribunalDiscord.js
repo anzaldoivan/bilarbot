@@ -59,7 +59,14 @@ module.exports = {
 
     if (!users[olduser]) {
       interaction.followUp(
-        `El usuario que ha ingresado no fue encontrado en nuestra base de datos.`
+        `El usuario antiguo que ha ingresado no fue encontrado en nuestra base de datos.`
+      );
+      return;
+    }
+
+    if (users[newuser]) {
+      interaction.followUp(
+        `El usuario nuevo que ha ingresado fue encontrado en nuestra base de datos. No se puede reemplazar un usuario ya existente.`
       );
       return;
     }

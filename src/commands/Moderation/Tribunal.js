@@ -60,6 +60,13 @@ module.exports = {
     const messageAuthor = interaction.member.user.id;
     let stringMessage;
 
+    if (!teams[team.toUpperCase()][week]) {
+      interaction.followUp(
+        `Error encontrado al acceder el perfil de ${team.toUpperCase()} de la semana ${week}. Contactar con el Staff.`
+      );
+      return;
+    }
+
     if (modo == "postergaciones+") {
       teams[team.toUpperCase()][week].postponement += 1;
       stringMessage = "aumentado las postergaciones";

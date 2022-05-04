@@ -105,6 +105,7 @@ module.exports = {
     }
 
     await GetFromDB.updateDb("bilarbot", "users", users);
+    await GetFromDB.updateDb("bilarbot", torneo, teams);
 
     interaction.followUp("Acción realizada con exito.");
 

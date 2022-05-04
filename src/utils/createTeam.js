@@ -11,7 +11,7 @@ async function createTeamList(teams, fecha, team) {
     //console.log("La fecha ya existe");
     return;
   }
-  console.log(`${team} / ${fecha}`);
+  console.log(`${team} / ${fecha} (Updating ${torneo} db)`);
   console.log(teams[team.toUpperCase()][fecha]);
   teams[team.toUpperCase()][fecha] = teams[team.toUpperCase()][fecha - 1];
   teams[team.toUpperCase()][fecha].transfers = 4;

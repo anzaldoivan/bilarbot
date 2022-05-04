@@ -71,26 +71,26 @@ module.exports = {
       return;
     }
 
-    if (!teams[team.toUpperCase()][week]) {
-      interaction.followUp(
-        `Error encontrado al acceder el perfil de ${team.toUpperCase()} de la semana ${week}. Contactar con el Staff.`
-      );
-      return;
-    }
-
     console.log(users[olduser]);
     users[newuser] = users[olduser];
     delete users[olduser];
 
     for (var key in teams) {
       if (teams.hasOwnProperty(key)) {
-        if (key != "_id" && val.fullname != "TEST")
+        if (key != "_id" && val.fullname != "TEST") {
+          if (!teams[key][week]) {
+            interaction.followUp(
+              `Error encontrado al acceder el perfil de ${key} de la semana ${week}. Contactar con el Staff.`
+            );
+            return;
+          }
           for (let i = 0; i < teams[key][week].players.length; i++) {
             if (teams[key][week].players[i] == olduser) {
               console.log("Player found!");
               teams[key][week].players[i] = newuser;
             }
           }
+        }
       }
     }
 

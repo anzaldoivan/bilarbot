@@ -59,9 +59,9 @@ module.exports = {
       let emoji2;
       let name;
       let name2;
-      console.log(calendar[fecha - 1]);
+      //console.log(calendar[fecha - 1]);
       for (let p = 0; p < calendar[fecha - 1].length; p++) {
-        console.log(calendar[fecha - 1][p][0]);
+        //console.log(calendar[fecha - 1][p][0]);
         if (!clublist[calendar[fecha - 1][p][0]]) {
           emoji = "⚽";
           name = calendar[fecha - 1][p][0];
@@ -82,7 +82,7 @@ module.exports = {
         );
       }
       for (let p = 0; p < calendar[fecha].length; p++) {
-        console.log(calendar[fecha][p][0]);
+        //console.log(calendar[fecha][p][0]);
         if (!clublist[calendar[fecha][p][0]]) {
           emoji = "⚽";
           name = calendar[fecha][p][0];

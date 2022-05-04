@@ -77,7 +77,7 @@ module.exports = {
 
     for (var key in teams) {
       if (teams.hasOwnProperty(key)) {
-        if (key != "_id" && val.fullname != "TEST") {
+        if (key != "_id") {
           if (!teams[key][week]) {
             interaction.followUp(
               `Error encontrado al acceder el perfil de ${key} de la semana ${week}. Contactar con el Staff.`

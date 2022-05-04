@@ -46,8 +46,10 @@ module.exports = {
     const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
     const usersDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
     const users = await usersDB[0];
+    const usersCount = Object.keys(users).length;
     const teamsDB = await GetFromDB.getEverythingFrom("bilarbot", "t9");
     const teams = await teamsDB[0];
+    const teamsCount = Object.keys(teams).length;
     const emojiUpdate = client.emojis.cache.get("954176214220808192");
 
     let week = await funcDate.getFecha(
@@ -88,13 +90,21 @@ module.exports = {
             if (teams[key][week].players[i] == olduser) {
               console.log("Player found!");
               teams[key][week].players[i] = newuser;
+              break;
             }
           }
         }
       }
     }
 
-    //await GetFromDB.updateDb("bilarbot", "users", users);
+    if (usersCount != Object.keys(users).length) {
+      interaction.followUp(
+        `Error encontrado al modificar usuarios. Contactar con el Staff.`
+      );
+      return;
+    }
+
+    await GetFromDB.updateDb("bilarbot", "users", users);
 
     interaction.followUp("Acción realizada con exito.");
 

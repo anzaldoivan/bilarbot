@@ -27,8 +27,8 @@ module.exports = {
         // .addChoice("Servidor #2", "27016")
         // .addChoice("Servidor #3", "27017")
         // .addChoice("Servidor #4", "27018")
-        .addChoice("Privado #1", "24555")
-        .addChoice("Privado #2", "24556")
+        .addChoice("IOSoccer Sudamerica #1", "27015")
+        .addChoice("IOSoccer Sudamerica #2", "27016")
     ),
   channel: ["779460129065009172", "898701693741596692"],
   async execute(interaction, client) {

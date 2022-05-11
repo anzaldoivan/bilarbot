@@ -72,7 +72,7 @@ module.exports = {
       })
       .on("end", function () {
         console.log("Connection closed");
-        process.exit();
+        //process.exit();
       });
 
     conn.connect();

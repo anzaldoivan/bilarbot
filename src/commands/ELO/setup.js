@@ -30,6 +30,7 @@ module.exports = {
       const playerlist = playerlistDB[0][matchID];
       //console.log(playerlistDB[0]);
       console.log(playerlist);
+      console.log(playerlist.port);
       console.log(matchID);
     } catch (e) {
       console.log("oh no big error");

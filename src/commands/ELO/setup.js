@@ -34,7 +34,7 @@ module.exports = {
     } catch (e) {
       console.log("oh no big error");
       console.log(e);
-      interaction.followUp("No se ha podido encontrar la sala.");
+      interaction.followUp("No se ha podido encontrar la partida.");
       return;
     }
     let bool = await funcPlaying.isPlaying(interaction);
@@ -46,10 +46,10 @@ module.exports = {
       );
       return;
     }
-    if (!playerlist) {
-      await interaction.followUp("La ID introducida no existe.");
-      return;
-    }
+    // if (!playerlist) {
+    //   await interaction.followUp("La ID introducida no existe.");
+    //   return;
+    // }
     await funcRCON.eloSetup(
       client.config,
       playerlist.port,

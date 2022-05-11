@@ -16,7 +16,7 @@ async function eloSetup(config, serverport, matchID, interaction) {
       console.log("Sending command: help");
       conn.send("sv_webserver_matchdata_enabled 1");
       conn.send(
-        "sv_webserver_matchdata_url " + `${config.botip}:5000/api/postuploadios`
+        "sv_webserver_matchdata_url " + `"${config.botip}/api/postuploadios"`
       );
       conn.send(
         "sv_webserver_matchdata_accesstoken " + `${config.elo.token}:${matchID}`

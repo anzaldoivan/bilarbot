@@ -134,6 +134,7 @@ module.exports = {
     draws = messages[user].draws;
     losses = messages[user].losses;
     lastMM = messages[user].lastMatch;
+    if (lastMM == 0) lastMM = "N/A";
 
     let infoColor = "#000000";
     switch (rank) {

@@ -1,7 +1,8 @@
 const fs = require("fs");
 
 async function eloCalculatorSK(result, playerlist, bonus, totalPlayers) {
-  const messages = require(`../Users/185191450013597696.json`);
+  const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+  const messages = messagesDB[0];
   homeelo = playerlist.Team1.elo;
   awayelo = playerlist.Team2.elo;
   //totalPlayers -= 1;

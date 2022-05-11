@@ -75,8 +75,8 @@ module.exports = {
     ),
   channel: ["779460129065009172", "898701693741596692"],
   async execute(interaction, client) {
-    decache("../../Users/185191450013597696.json");
-    const messages = require(`../../Users/185191450013597696.json`);
+    const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+    const messages = messagesDB[0];
     let rank = "Inactivo";
     let roleDiamond = "782472483727081482";
     let roleGold = "782734771582533682";

@@ -10,8 +10,8 @@ module.exports = {
     .setDescription("Ver leaderboard de jugadores de Matchmaking ELO."),
   channel: ["779460129065009172", "898701693741596692"],
   async execute(interaction, client) {
-    decache("../../Users/185191450013597696.json");
-    const messages = require(`../../Users/185191450013597696.json`);
+    const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+    const messages = messagesDB[0];
     let arr = fetchTop.fetchTop(
       messages,
       interaction.member.user.id,

@@ -41,7 +41,8 @@ async function getTeamEmbed(json, week, interaction, config) {
       maxPlayersAmount = config.tournament.maxPlayers;
     }
     //console.log(week);
-    const users = require(`../Users/185191450013597696.json`);
+    const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+    const users = messagesDB[0];
     let steam;
     let displayName;
     let discordError = "";

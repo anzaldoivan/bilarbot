@@ -60,7 +60,8 @@ module.exports = {
   async execute(interaction, client) {
     const position = interaction.options.getString("pos");
     const duoID = interaction.options.getInteger("duo");
-    const messages = require(`../../Users/185191450013597696.json`);
+    const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+    const messages = messagesDB[0];
     let pos = require(`../../elo/${position}.json`);
     let pos_nuevos = require(`../../elo/${position}_nuevos.json`);
     let duoRooms = require(`../../elo/duo.json`);
@@ -157,16 +158,7 @@ module.exports = {
         interaction.followUp(err);
       }
     });
-    fs.writeFileSync(
-      `./src/Users/185191450013597696.json`,
-      JSON.stringify(messages),
-      (err) => {
-        if (err) {
-          console.log(err);
-          client.channels.cache.get(client.config.mm_channel).send(err);
-        }
-      }
-    );
+    await GetFromDB.updateDb("bilarbot", "users", messages);
     //console.log(pos);
     embed = await package.signedList(client.config, interaction);
     client.channels.cache

@@ -3,7 +3,8 @@ const fs = require("fs");
 
 async function addUser(interaction, userjson, matchesjson) {
   const fs = require("fs");
-  const messages = require(`../Users/185191450013597696.json`);
+  const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
+  const messages = messagesDB[0];
 
   //console.log("The lenght of the matches json is: " + matchesjson.length);
   var wins = 0;
@@ -102,16 +103,7 @@ async function addUser(interaction, userjson, matchesjson) {
         `Usuario Configurado. ID de <@${interaction.member.user.id}>: \nPerfil de Steam vinculado al ID: http://steamcommunity.com/profiles/${interaction.member.user.id}`
       );
 
-      fs.writeFileSync(
-        `./src/Users/185191450013597696.json`,
-        JSON.stringify(messages),
-        (err) => {
-          if (err) {
-            console.log(err);
-            client.channels.cache.get(client.config.mm_channel).send(err);
-          }
-        }
-      );
+      await GetFromDB.updateDb("bilarbot", "users", messages);
     } else {
       interaction.followUp(
         "La ID mencionada no coincide con tu usuario de Discord.\nPor favor, enviar una ID que coincida con tu usuario de discord.\nRecorda que tenes que vincular tu cuenta de Discord en https://www.iosoccer.com/edit-profile"

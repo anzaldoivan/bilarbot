@@ -5,7 +5,6 @@ const decache = require("decache");
 
 const fs = require("fs");
 const e = require("express");
-const { default: decache } = require("decache");
 
 module.exports = {
   data: new SlashCommandBuilder()

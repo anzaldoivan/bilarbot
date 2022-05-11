@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const funcRCON = require("../../utils/eloSetup.js");
 const funcPlaying = require("../../utils/isPlaying.js");
+const decache = require("decache");
 
 const fs = require("fs");
 const e = require("express");
+const { default: decache } = require("decache");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -21,10 +23,13 @@ module.exports = {
     let playerlist;
     try {
       // a path we KNOW is totally bogus and not a module
+      decache(`../../elo/${matchID}.json`);
       playerlist = require(`../../elo/${matchID}.json`);
     } catch (e) {
       console.log("oh no big error");
       console.log(e);
+      interaction.followUp("No se ha podido encontrar la sala.");
+      return;
     }
     let bool = await funcPlaying.isPlaying(interaction);
     console.log(bool);

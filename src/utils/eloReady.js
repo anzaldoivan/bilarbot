@@ -46,7 +46,6 @@ async function eloReady(interaction, config, matchID, matchPORT) {
   let delanteros;
   const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");
   const messages = messagesDB[0];
-  const matchinfo = require(`../elo/matchinfo.json`);
   const matchplayers = require(`../elo/matchplayers.json`);
   const duoQ = require(`../elo/duo.json`);
 

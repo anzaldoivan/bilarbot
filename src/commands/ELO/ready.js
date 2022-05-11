@@ -38,8 +38,6 @@ module.exports = {
     let defensores;
     let cm;
     let delanteros;
-    decache("../../elo/matchinfo.json");
-    const matchinfo = require(`../../elo/matchinfo.json`);
 
     if (interaction.channelId == "779460129065009172") {
       gk = require(`../../elo/gk.json`);

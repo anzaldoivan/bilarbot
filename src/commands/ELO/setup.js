@@ -28,6 +28,9 @@ module.exports = {
         "elomatches"
       );
       const playerlist = playerlistDB[0][matchID];
+      console.log(playerlistDB[0]);
+      console.log(playerlist);
+      console.log(matchID);
     } catch (e) {
       console.log("oh no big error");
       console.log(e);
@@ -38,13 +41,13 @@ module.exports = {
     if (interaction.member.user.id == "185190495046205451") bool = true;
     console.log(bool);
     if (!bool) {
-      interaction.followUp(
+      await interaction.followUp(
         "Solamente los jugadores de la partida pueden configurarla."
       );
       return;
     }
     if (!playerlist) {
-      interaction.followUp("La ID introducida no existe.");
+      await interaction.followUp("La ID introducida no existe.");
       return;
     }
     await funcRCON.eloSetup(
@@ -53,7 +56,7 @@ module.exports = {
       matchID,
       interaction
     );
-    interaction.followUp(
+    await interaction.followUp(
       `Servidor configurado correctamente en el servidor steam://connect/${client.config.serverip}:${playerlist.port}/elomatch.`
     );
     return;

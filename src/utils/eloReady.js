@@ -553,7 +553,7 @@ function eloReady(interaction, config, matchID, matchPORT) {
   console.log(matches[indexofmatch]);
 
   fs.writeFileSync(
-    `./elo/${matchID}.json`,
+    `./src/elo/${matchID}.json`,
     JSON.stringify(matches[indexofmatch]),
     (err) => {
       if (err) {

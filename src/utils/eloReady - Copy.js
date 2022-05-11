@@ -388,7 +388,7 @@ function eloReady(interaction, config) {
   console.log(matches[indexofmatch]);
 
   fs.writeFileSync(
-    `./elo/matchinfo.json`,
+    `./src/elo/matchinfo.json`,
     JSON.stringify(matches[indexofmatch]),
     (err) => {
       if (err) {
@@ -399,7 +399,7 @@ function eloReady(interaction, config) {
   );
 
   fs.writeFileSync(
-    `./elo/history/${Math.floor(Date.now() / 1000)}.json`,
+    `./src/elo/history/${Math.floor(Date.now() / 1000)}.json`,
     JSON.stringify(matches[indexofmatch]),
     (err) => {
       if (err) {

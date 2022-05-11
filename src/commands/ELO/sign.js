@@ -141,20 +141,24 @@ module.exports = {
       .catch((error) => {
         console.log(`User ${user} has blocked DM`);
       });
-    fs.writeFileSync(`./elo/${position}.json`, JSON.stringify(pos), (err) => {
-      if (err) {
-        console.log(err);
-        interaction.followUp(err);
+    fs.writeFileSync(
+      `./src/elo/${position}.json`,
+      JSON.stringify(pos),
+      (err) => {
+        if (err) {
+          console.log(err);
+          interaction.followUp(err);
+        }
       }
-    });
-    fs.writeFileSync(`./elo/duo.json`, JSON.stringify(duoRooms), (err) => {
+    );
+    fs.writeFileSync(`./src/elo/duo.json`, JSON.stringify(duoRooms), (err) => {
       if (err) {
         console.log(err);
         interaction.followUp(err);
       }
     });
     fs.writeFileSync(
-      `./Users/185191450013597696.json`,
+      `./src/Users/185191450013597696.json`,
       JSON.stringify(messages),
       (err) => {
         if (err) {

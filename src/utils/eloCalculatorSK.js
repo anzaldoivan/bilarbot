@@ -265,7 +265,7 @@ async function eloCalculatorSK(result, playerlist, bonus, totalPlayers) {
   ].lastMatch = `${day}-${month}-${year}`;
 
   fs.writeFileSync(
-    "./Users/185191450013597696.json",
+    "./src/Users/185191450013597696.json",
     JSON.stringify(messages),
     (err) => {
       if (err) {

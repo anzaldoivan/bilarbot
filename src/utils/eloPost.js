@@ -125,7 +125,7 @@ async function eloPost(req, res, config, client) {
   //     }
   //   );
   fs.writeFileSync(
-    `./elo/matchplayers.json`,
+    `./src/elo/matchplayers.json`,
     JSON.stringify(isPlaying),
     (err) => {
       if (err) {

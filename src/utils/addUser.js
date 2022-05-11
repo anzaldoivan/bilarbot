@@ -103,7 +103,7 @@ async function addUser(interaction, userjson, matchesjson) {
       );
 
       fs.writeFileSync(
-        `./Users/185191450013597696.json`,
+        `./src/Users/185191450013597696.json`,
         JSON.stringify(messages),
         (err) => {
           if (err) {

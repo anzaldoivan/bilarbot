@@ -48,7 +48,7 @@ module.exports = {
     let matchinfo = [];
     let isPlaying = [];
     fs.writeFileSync(
-      `./elo/matchinfo.json`,
+      `./src/elo/matchinfo.json`,
       JSON.stringify(matchinfo),
       (err) => {
         if (err) {
@@ -58,7 +58,7 @@ module.exports = {
       }
     );
     fs.writeFileSync(
-      `./elo/matchplayers.json`,
+      `./src/elo/matchplayers.json`,
       JSON.stringify(isPlaying),
       (err) => {
         if (err) {

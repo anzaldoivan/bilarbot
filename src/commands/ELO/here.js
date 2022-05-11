@@ -24,7 +24,7 @@ module.exports = {
       //console.log(client.config.elo.here);
       client.config.elo.here = DateTime.now();
       fs.writeFileSync(
-        `./Config/config.json`,
+        `./src/Config/config.json`,
         JSON.stringify(client.config),
         (err) => {
           if (err) {

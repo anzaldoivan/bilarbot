@@ -3,6 +3,7 @@ const funcRCON = require("../../utils/eloSetup.js");
 const funcPlaying = require("../../utils/isPlaying.js");
 const funcDisable = require("../../utils/eloDisable.js");
 const fs = require("fs");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,10 +21,16 @@ module.exports = {
     let playerlist;
     try {
       // a path we KNOW is totally bogus and not a module
-      playerlist = require(`../../elo/${matchID}.json`);
+      const playerlistDB = await GetFromDB.getEverythingFrom(
+        "bilarbot",
+        "elomatches"
+      );
+      const playerlist = playerlistDB[0][matchID];
     } catch (e) {
       console.log("oh no big error");
       console.log(e);
+      interaction.followUp("La ID introducida no existe.");
+      return;
     }
     let bool = await funcPlaying.isPlaying(interaction);
     console.log(bool);

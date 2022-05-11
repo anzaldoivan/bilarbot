@@ -29,7 +29,11 @@ async function eloPost(req, res, config, client) {
   }
   try {
     decache("../elo/matchinfo.json");
-    let playerlist = require(`../elo/${token[1]}.json`);
+    const matchesDB = await GetFromDB.getEverythingFrom(
+      "bilarbot",
+      "elomatches"
+    );
+    let playerlist = matchesDB[0][token[1]];
     let torneo = `${token[1]}`;
     let vod = "";
     let local = 0;
@@ -106,14 +110,16 @@ async function eloPost(req, res, config, client) {
   }
   console.log("Cleaning matchinfo and players");
 
-  playerlist = [];
   let isPlaying = [];
-  fs.unlink(`./elo/${token[1]}.json`, (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-  });
+  // fs.unlink(`./elo/${token[1]}.json`, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //     return;
+  //   }
+  // });
+
+  delete playerlist[token[1]];
+  await GetFromDB.updateDb("bilarbot", "elomatches", playerlist);
   //   fs.writeFileSync(
   //     `./elo/${token[1]}.json`,
   //     JSON.stringify(playerlist),

@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const funcRCON = require("../../utils/eloSetup.js");
 const funcPlaying = require("../../utils/isPlaying.js");
 const decache = require("decache");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 const fs = require("fs");
 const e = require("express");
@@ -22,8 +23,11 @@ module.exports = {
     let playerlist;
     try {
       // a path we KNOW is totally bogus and not a module
-      decache(`../../elo/${matchID}.json`);
-      playerlist = require(`../../elo/${matchID}.json`);
+      const playerlistDB = await GetFromDB.getEverythingFrom(
+        "bilarbot",
+        "elomatches"
+      );
+      const playerlist = playerlistDB[0][matchID];
     } catch (e) {
       console.log("oh no big error");
       console.log(e);

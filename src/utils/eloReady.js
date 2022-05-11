@@ -553,16 +553,10 @@ async function eloReady(interaction, config, matchID, matchPORT) {
 
   console.log(matches[indexofmatch]);
 
-  fs.writeFileSync(
-    `./src/elo/${matchID}.json`,
-    JSON.stringify(matches[indexofmatch]),
-    (err) => {
-      if (err) {
-        console.log(err);
-        interaction.followUp(err);
-      }
-    }
-  );
+  const matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "elomatches");
+  let matches = matchesDB[0];
+  matches[matchID] = matches[indexofmatch];
+  await GetFromDB.updateDb("bilarbot", "elomatches", matches);
 
   fs.writeFileSync(
     `./src/elo/history/${Math.floor(Date.now() / 1000)}.json`,

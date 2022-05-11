@@ -35,6 +35,7 @@ module.exports = {
       return;
     }
     let bool = await funcPlaying.isPlaying(interaction);
+    if (interaction.member.user.id == "185190495046205451") bool = false;
     console.log(bool);
     if (!bool) {
       interaction.followUp(

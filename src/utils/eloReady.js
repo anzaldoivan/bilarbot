@@ -185,7 +185,7 @@ async function eloReady(interaction, config, matchID, matchPORT) {
   console.log(arr);
 
   fs.writeFileSync(
-    `./elo/matchplayers.json`,
+    `./src/elo/matchplayers.json`,
     JSON.stringify(newMatchplayers),
     (err) => {
       if (err) {
@@ -566,7 +566,7 @@ async function eloReady(interaction, config, matchID, matchPORT) {
   );
 
   fs.writeFileSync(
-    `./elo/history/${Math.floor(Date.now() / 1000)}.json`,
+    `./src/elo/history/${Math.floor(Date.now() / 1000)}.json`,
     JSON.stringify(matches[indexofmatch]),
     (err) => {
       if (err) {

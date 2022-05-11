@@ -28,7 +28,7 @@ module.exports = {
         "elomatches"
       );
       const playerlist = playerlistDB[0][matchID];
-      console.log(playerlistDB[0]);
+      //console.log(playerlistDB[0]);
       console.log(playerlist);
       console.log(matchID);
     } catch (e) {

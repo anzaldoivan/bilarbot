@@ -347,16 +347,7 @@ async function eloCalculator(result, playerlist, bonus, totalPlayers) {
     }
   }
 
-  fs.writeFileSync(
-    "./src/Users/185191450013597696.json",
-    JSON.stringify(messages),
-    (err) => {
-      if (err) {
-        console.log(err);
-        message.channel.send(err);
-      }
-    }
-  );
+  await GetFromDB.updateDb("bilarbot", "users", messages);
 
   console.log("ELO Calculation finished correctly");
 }

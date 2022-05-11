@@ -4,6 +4,7 @@ const funcElo = require("./eloCalculator.js");
 const funcEloSK = require("./eloCalculatorSK.js");
 const Discord = require("discord.js");
 const decache = require("decache");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 async function eloPost(req, res, config, client) {
   console.log(req.ip);

@@ -554,9 +554,9 @@ async function eloReady(interaction, config, matchID, matchPORT) {
   console.log(matches[indexofmatch]);
 
   const matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "elomatches");
-  let matches = matchesDB[0];
-  matches[matchID] = matches[indexofmatch];
-  await GetFromDB.updateDb("bilarbot", "elomatches", matches);
+  let tempPlayerlist = matchesDB[0];
+  tempPlayerlist[matchID] = matches[indexofmatch];
+  await GetFromDB.updateDb("bilarbot", "elomatches", tempPlayerlist);
 
   fs.writeFileSync(
     `./src/elo/history/${Math.floor(Date.now() / 1000)}.json`,

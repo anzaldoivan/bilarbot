@@ -33,8 +33,10 @@ module.exports = {
     var conn = new Rcon(config.serverip, serverport, config.rcon_password);
     let message;
     let comandoSplit = comando.split(" ");
-    if(comandoSplit[0].toLowerCase() == 'rcon'){
-      interaction.followUp("No es necesario escribir rcon antes del comando. Intente nuevamente sin usar rcon.");
+    if (comandoSplit[0].toLowerCase() == "rcon") {
+      interaction.followUp(
+        "No es necesario escribir rcon antes del comando. Intente nuevamente sin usar rcon."
+      );
       return;
     }
 
@@ -70,7 +72,6 @@ module.exports = {
       })
       .on("end", function () {
         console.log("Connection closed");
-        interaction.followUp("Error de Timeout. Intente nuevamente.");
         process.exit();
       });
 

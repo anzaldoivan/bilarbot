@@ -32,10 +32,10 @@ async function eloSetup(config, serverport, matchID, interaction) {
     })
     .on("error", function (err) {
       console.log("Error: " + err);
+      interaction.followUp("Error de Timeout. Intente nuevamente.");
     })
     .on("end", function () {
       console.log("Connection closed");
-      interaction.followUp("Error de Timeout. Intente nuevamente.");
       process.exit();
     });
 

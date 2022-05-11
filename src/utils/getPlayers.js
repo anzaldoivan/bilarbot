@@ -25,7 +25,7 @@ function getPlayers(interaction, config, serverport, matchID) {
       config.players = players;
 
       fs.writeFileSync(
-        `./Config/config.json`,
+        `./src/Config/config.json`,
         JSON.stringify(config),
         (err) => {
           if (err) {

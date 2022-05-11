@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const { DateTime } = require("luxon");
 const bignumber = require("bignumber.js");
 const decache = require("decache");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 function createTeamList(fecha, team, interaction) {
   if (!messages[team.toUpperCase()][fecha - 1]) {

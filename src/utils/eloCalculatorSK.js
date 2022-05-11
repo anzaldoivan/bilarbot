@@ -1,4 +1,5 @@
 const fs = require("fs");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 async function eloCalculatorSK(result, playerlist, bonus, totalPlayers) {
   const messagesDB = await GetFromDB.getEverythingFrom("bilarbot", "users");

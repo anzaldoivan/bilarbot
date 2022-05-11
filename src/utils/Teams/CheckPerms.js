@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const { DateTime, Interval } = require("luxon");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 function isCaptain(interaction, team, week) {
   if (!team[week].director) {

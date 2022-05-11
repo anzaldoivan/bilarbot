@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const package = require("../../utils/signedList.js");
 const isSigned = require("../../utils/isSigned.js");
 const isPlaying = require("../../utils/isPlaying.js");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 const fs = require("fs");
 const e = require("express");

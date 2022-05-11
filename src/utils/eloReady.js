@@ -3,6 +3,7 @@ const fs = require("fs");
 const wilsonScore = require("wilson-score-rank");
 const singlekeeper = require("../commands/ELO/singlekeeper");
 const decache = require("decache");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 function getDuoID(user, duoroom, matchplayers) {
   for (var fieldIndex = 0; fieldIndex < duoroom.length; fieldIndex++) {

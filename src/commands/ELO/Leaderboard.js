@@ -3,6 +3,7 @@ const fetchTop = require("../../utils/fetchTop.js");
 const decache = require("decache");
 const Discord = require("discord.js");
 const package = require("../../utils/signedList.js");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 module.exports = {
   data: new SlashCommandBuilder()

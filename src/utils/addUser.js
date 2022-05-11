@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 async function addUser(interaction, userjson, matchesjson) {
   const fs = require("fs");

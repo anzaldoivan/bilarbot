@@ -10,6 +10,7 @@ const date = new Date();
 const day = date.getDate();
 const month = date.getMonth() + 1;
 const year = date.getFullYear();
+const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 async function fetchRank(topindex, interaction) {
   let roleDiamond = "782472483727081482";

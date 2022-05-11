@@ -4,6 +4,12 @@ const { DateTime, Interval } = require("luxon");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 
 function isCaptain(interaction, team, week) {
+  if (!team[week]) {
+    interaction.followUp(
+      `Error al leer los datos del equipo. Contactar al Staff.`
+    );
+    return false;
+  }
   if (!team[week].director) {
     interaction.followUp(
       `Error al leer los datos del equipo. Contactar al Staff.`

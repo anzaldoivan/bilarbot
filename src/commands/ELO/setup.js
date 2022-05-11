@@ -21,23 +21,20 @@ module.exports = {
   async execute(interaction, client) {
     const matchID = interaction.options.getInteger("id");
     let playerlist;
-    try {
-      // a path we KNOW is totally bogus and not a module
-      const playerlistDB = await GetFromDB.getEverythingFrom(
-        "bilarbot",
-        "elomatches"
-      );
-      const playerlist = playerlistDB[0][matchID];
-      //console.log(playerlistDB[0]);
-      console.log(playerlist);
-      console.log(playerlist.port);
-      console.log(matchID);
-    } catch (e) {
-      console.log("oh no big error");
-      console.log(e);
-      interaction.followUp("No se ha podido encontrar la partida.");
+    const playerlistDB = await GetFromDB.getEverythingFrom(
+      "bilarbot",
+      "elomatches"
+    );
+    if (!playerlistDB[0][matchID]) {
+      await interaction.followUp("La ID introducida no existe.");
       return;
     }
+    playerlist = playerlistDB[0][matchID];
+    //console.log(playerlistDB[0]);
+    console.log(playerlist);
+    console.log(playerlist.port);
+    console.log(matchID);
+
     let bool = await funcPlaying.isPlaying(interaction);
     if (interaction.member.user.id == "185190495046205451") bool = true;
     console.log(bool);

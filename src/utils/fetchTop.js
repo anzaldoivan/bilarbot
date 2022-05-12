@@ -9,19 +9,23 @@ function fetchTop(messages, user, mode) {
   var totalELO = 0;
 
   var userDate = messages[user.replace(/[^0-9\.]+/g, "")].lastMatch;
-  if (userDate == 0) userDate = "2021-01-01";
+  if (userDate == 0) userDate = "2022-01-01";
 
   var lastDate = userDate.split("-");
-  if (lastDate[2] != "2021") {
-    return 0;
-  }
+  console.log(`${userDate} / ${lastDate}`);
 
-  if (lastDate[1] == month) {
-    if (Number(day) - Number(lastDate[0]) >= 13) {
+  if (mode != "leaderboard") {
+    if (lastDate[2] != "2022") {
       return 0;
     }
-  } else {
-    return 0;
+
+    if (lastDate[1] == month) {
+      if (Number(day) - Number(lastDate[0]) >= 13) {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
   }
 
   for (var key in messages) {
@@ -41,7 +45,7 @@ function fetchTop(messages, user, mode) {
       /*console.log(
         `Array month: ${lastDate[1]} / day: ${lastDate[0]} -- Current month: ${month} / current day: ${day}`
       );*/
-      if (lastDate[2] != "2021") {
+      if (lastDate[2] != "2022") {
         continue;
       }
 
@@ -78,6 +82,11 @@ function fetchTop(messages, user, mode) {
   var centinela = 0;
   var z = 0;
 
+  if (mode == "leaderboard") {
+    console.log("leaderboard");
+    return arr;
+  }
+
   do {
     if (`<@${user}>` === arr[z].ping) {
       centinela = 1;
@@ -86,10 +95,6 @@ function fetchTop(messages, user, mode) {
       topindex++;
     }
   } while (centinela == 0);
-
-  if (mode == "leaderboard") {
-    return arr;
-  }
 
   return topindex + 1;
 }

@@ -15,6 +15,7 @@ app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
 module.exports = (client) => {
   client.handleMatchmaking = async () => {
     app.post("/api/postuploadios", (req, res) => {
+      console.log(req);
       package.eloPost(req, res, client.config, client);
     });
     // ELO Feature.

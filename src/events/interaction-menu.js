@@ -4,6 +4,7 @@ const fs = require("fs");
 const perms = require("../utils/Teams/CheckPerms.js");
 const GetFromDB = require(`${appRoot}/Database/GetFromDB.js`);
 const CalendarManager = require("../utils/Teams/CalendarManager.js");
+const eloManager = require(`${appRoot}/utils/eloManager.js`);
 
 module.exports = {
   name: "interactionCreate",
@@ -73,6 +74,28 @@ module.exports = {
           torneo
         );
       }
+    }
+
+    // Sign Logic
+    if (captainSplit[0] == "sign") {
+      await eloManager.sign(interaction, client, captainSplit[1]);
+      interaction.deferUpdate();
+    }
+
+    // Sign Logic
+    if (captainSplit[0] == "unsign") {
+      await eloManager.unsign(interaction, client);
+      interaction.deferUpdate();
+    }
+
+    // Sign Logic
+    if (captainSplit[0] == "ready") {
+    }
+
+    // Sign Logic
+    if (captainSplit[0] == "here") {
+      await eloManager.here(interaction, client);
+      interaction.deferUpdate();
     }
 
     if (captainSplit[0] == "rechazar") {

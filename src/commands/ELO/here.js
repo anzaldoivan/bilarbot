@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const { DateTime, Interval } = require("luxon");
 const funcRCON = require("../../utils/eloSetup.js");
 const funcPlaying = require("../../utils/isPlaying.js");
+const eloManager = require(`${appRoot}/utils/eloManager.js`);
 
 const fs = require("fs");
 const e = require("express");
@@ -14,31 +15,10 @@ module.exports = {
     ),
   channel: ["779460129065009172", "898701693741596692"],
   async execute(interaction, client) {
-    const before = DateTime.fromISO(client.config.elo.here);
-    const now = DateTime.now();
-    const diff = Interval.fromDateTimes(before, now);
-    const diffMinutes = Math.abs(diff.length("minutes"));
     //console.log(before);
     //console.log(`Minutes difference: ${Number(diffMinutes)}`);
-    if (diffMinutes >= 10) {
-      //console.log(client.config.elo.here);
-      client.config.elo.here = DateTime.now();
-      fs.writeFileSync(
-        `./src/Config/config.json`,
-        JSON.stringify(client.config),
-        (err) => {
-          if (err) {
-            console.log(err);
-          }
-        }
-      );
-      client.channels.cache.get(client.config.mm_channel).send("@here");
-      interaction.deleteReply();
-      return;
-    }
-    interaction.followUp(
-      "El comando /here solo se puede usar en intervalos de 10 minutos"
-    );
+    await eloManager.here(interaction, client);
+    interaction.deleteReply();
     return;
   },
 };

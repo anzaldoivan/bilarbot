@@ -10,16 +10,16 @@ async function eloPost(req, res, config, client) {
   console.log(req.ip);
   console.log(config.serverip);
   console.log(config.elo.token);
-  if (req.ip != config.serverip || req.ip != config.serverip) {
-    res.end("Incorrect Token");
-    console.log(req.ip);
-    console.log(config.serverip);
+  // if (req.ip != config.serverip || req.ip != config.serverip) {
+  //   res.end("Incorrect Token");
+  //   console.log(req.ip);
+  //   console.log(config.serverip);
 
-    console.dir(
-      `Received JSON from ${req.ip}. Valid IP is ${config.serverip}. Response is ended`
-    );
-    return;
-  }
+  //   console.dir(
+  //     `Received JSON from ${req.ip}. Valid IP is ${config.serverip}. Response is ended`
+  //   );
+  //   return;
+  // }
   const token = req.body.access_token.split(":", 2);
   console.log(token);
   if (token[0] != config.elo.token) {

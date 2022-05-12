@@ -105,6 +105,8 @@ async function eloPost(req, res, config, client) {
       .addField("ELO Boost", `${bonus}`);
     client.channels.cache.get("779460129065009172").send({ embeds: [embed] });
     console.log("ELO Match finished correctly!");
+    delete playerlist[token[1]];
+    await GetFromDB.updateDb("bilarbot", "elomatches", playerlist);
   } catch (e) {
     console.error(e);
     res.end(e.toString());
@@ -119,8 +121,6 @@ async function eloPost(req, res, config, client) {
   //   }
   // });
 
-  delete playerlist[token[1]];
-  await GetFromDB.updateDb("bilarbot", "elomatches", playerlist);
   //   fs.writeFileSync(
   //     `./elo/${token[1]}.json`,
   //     JSON.stringify(playerlist),

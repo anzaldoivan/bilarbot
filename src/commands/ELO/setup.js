@@ -48,12 +48,13 @@ module.exports = {
     //   await interaction.followUp("La ID introducida no existe.");
     //   return;
     // }
-    await funcRCON.eloSetup(
-      client.config,
-      playerlist.port,
-      matchID,
-      interaction
-    );
+    // await funcRCON.eloSetup(
+    //   client.config,
+    //   playerlist.port,
+    //   matchID,
+    //   interaction
+    // );
+    funcRCON.eloSetup(client.config, serverport, matchID);
     await interaction.followUp(
       `Servidor configurado correctamente en el servidor steam://connect/${client.config.serverip}:${playerlist.port}/elomatch.`
     );

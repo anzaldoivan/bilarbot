@@ -16,7 +16,7 @@ module.exports = {
         .setStyle("DANGER"),
       new MessageButton()
         .setCustomId(`here`)
-        .setLabel("UNSIGN")
+        .setLabel("🔔")
         .setStyle("SECONDARY"),
       new MessageButton()
         .setCustomId(`ready`)

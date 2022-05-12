@@ -141,7 +141,7 @@ module.exports = {
       .get(interaction.member.user.id)
       .send("Te has unido a la lista de espera")
       .catch((error) => {
-        console.log(`User ${user} has blocked DM`);
+        console.log(`User ${interaction.member.user.id} has blocked DM`);
       });
     fs.writeFileSync(
       `./src/elo/${position}.json`,

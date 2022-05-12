@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const package = require("../../utils/signedList.js");
+const perms = require(`${appRoot}/utils/Teams/CheckPerms.js`);
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,7 +9,7 @@ module.exports = {
     .setDescription("Ver lista de espera de Matchmaking ELO."),
   channel: ["779460129065009172", "898701693741596692"],
   async execute(interaction, client) {
-    embed = await package.signedList(client.config, interaction);
+    const signedList = await package.signedList(client.config, interaction);
     const row = new MessageActionRow().addComponents(
       new MessageButton()
         .setCustomId(`unsign`)
@@ -46,7 +47,10 @@ module.exports = {
         .setStyle("DANGER")
     );
 
-    await interaction.editReply({ embeds: [embed], components: [row] });
-    await interaction.followUp({ embeds: [embed], components: [row2] });
+    await interaction.editReply(
+      "https://media.discordapp.net/attachments/455510792469479446/754851516971745362/brr.jpg",
+      { components: [row2] }
+    );
+    await interaction.followUp({ embeds: [signedList], components: [row] });
   },
 };

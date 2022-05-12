@@ -11,6 +11,20 @@ module.exports = {
     embed = await package.signedList(client.config, interaction);
     const row = new MessageActionRow().addComponents(
       new MessageButton()
+        .setCustomId(`unsign`)
+        .setLabel("UNSIGN")
+        .setStyle("DANGER"),
+      new MessageButton()
+        .setCustomId(`here`)
+        .setLabel("UNSIGN")
+        .setStyle("SECONDARY"),
+      new MessageButton()
+        .setCustomId(`ready`)
+        .setLabel("READY")
+        .setStyle("SUCCESS")
+    );
+    const row2 = new MessageActionRow().addComponents(
+      new MessageButton()
         .setCustomId(`sign/gk`)
         .setLabel("GK")
         .setStyle("PRIMARY"),
@@ -29,17 +43,10 @@ module.exports = {
       new MessageButton()
         .setCustomId(`unsign`)
         .setLabel("UNSIGN")
-        .setStyle("DANGER"),
-      new MessageButton()
-        .setCustomId(`here`)
-        .setLabel("UNSIGN")
-        .setStyle("SECONDARY"),
-      new MessageButton()
-        .setCustomId(`ready`)
-        .setLabel("READY")
-        .setStyle("SUCCESS")
+        .setStyle("DANGER")
     );
 
     await interaction.editReply({ embeds: [embed], components: [row] });
+    await interaction.followUp({ embeds: [embed], components: [row2] });
   },
 };

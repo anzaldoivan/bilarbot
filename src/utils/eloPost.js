@@ -28,89 +28,81 @@ async function eloPost(req, res, config, client) {
     );
     return;
   }
-  try {
-    decache("../elo/matchinfo.json");
-    const matchesDB = await GetFromDB.getEverythingFrom(
-      "bilarbot",
-      "elomatches"
-    );
-    let playerlist = matchesDB[0][token[1]];
-    let torneo = `${token[1]}`;
-    let vod = "";
-    let local = 0;
-    let visitante = 0;
-    let homeresult = 0;
+  decache("../elo/matchinfo.json");
+  const matchesDB = await GetFromDB.getEverythingFrom("bilarbot", "elomatches");
+  let playerlist = matchesDB[0][token[1]];
+  let torneo = `${token[1]}`;
+  let vod = "";
+  let local = 0;
+  let visitante = 0;
+  let homeresult = 0;
 
-    let date = new Date();
-    let bonus = false;
-    let hour = date.getHours();
+  let date = new Date();
+  let bonus = false;
+  let hour = date.getHours();
 
-    if (
-      hour == "00" ||
-      hour == "01" ||
-      hour == "02" ||
-      hour == "04" ||
-      hour == "05"
-    ) {
-      bonus = true;
-    }
-    console.log(`Hour from MM is: ${hour} / Bonus is: ${bonus} `);
-
-    if (req.body.matchData.teams[0].matchTotal.name == "Equipo 1") {
-      console.log("Teams[0] is Team 1");
-      local = req.body.matchData.teams[0].matchTotal.statistics[12];
-      visitante = req.body.matchData.teams[1].matchTotal.statistics[12];
-    } else {
-      console.log("Teams[1] is Team 1");
-      local = req.body.matchData.teams[1].matchTotal.statistics[12];
-      visitante = req.body.matchData.teams[0].matchTotal.statistics[12];
-    }
-
-    if (local == visitante) {
-      homeresult = 0.5;
-    } else {
-      if (local > visitante) {
-        homeresult = 1;
-      } else {
-        homeresult = -1;
-      }
-    }
-    console.log(playerlist);
-    console.log(
-      `JSON received. Comparing JSON IP ${req.ip} with valid IP ${config.serverip}`
-    );
-
-    funcRCON.eloDisable(req.ip, playerlist.port, config);
-    console.log("DEBUG PLAYERLIST");
-    console.log(playerlist);
-    if (playerlist.singlekeeper) {
-      await funcEloSK.eloCalculatorSK(homeresult, playerlist, bonus, 6);
-      console.log("Json with SK Received correctly");
-    } else {
-      await funcElo.eloCalculator(homeresult, playerlist, bonus, 6);
-      console.log("Json without SK Received correctly");
-    }
-    res.end(" -> JSON subido con exito");
-    embed = new Discord.MessageEmbed()
-      .setTitle("Matchmaking - Resultado")
-      .setColor("BLUE")
-      .addField(
-        `LOCAL - ${local}`,
-        `${playerlist.Team1.list[0].Name} ${playerlist.Team1.list[1].Name} ${playerlist.Team1.list[2].Name} ${playerlist.Team1.list[3].Name} ${playerlist.Team1.list[4].Name} ${playerlist.Team1.list[5].Name}`
-      )
-      .addField(
-        `VISITANTE - ${visitante}`,
-        `${playerlist.Team2.list[0].Name} ${playerlist.Team2.list[1].Name} ${playerlist.Team2.list[2].Name} ${playerlist.Team2.list[3].Name} ${playerlist.Team2.list[4].Name} ${playerlist.Team2.list[5].Name}`
-      )
-      .addField("ELO Boost", `${bonus}`);
-    client.channels.cache.get("779460129065009172").send({ embeds: [embed] });
-    console.log("ELO Match finished correctly!");
-    delete playerlist[token[1]];
-    await GetFromDB.updateDb("bilarbot", "elomatches", playerlist);
-  } catch (e) {
-    console.error(e);
-    res.end(e.toString());
+  if (
+    hour == "00" ||
+    hour == "01" ||
+    hour == "02" ||
+    hour == "04" ||
+    hour == "05"
+  ) {
+    bonus = true;
   }
+  console.log(`Hour from MM is: ${hour} / Bonus is: ${bonus} `);
+
+  if (req.body.matchData.teams[0].matchTotal.name == "Equipo 1") {
+    console.log("Teams[0] is Team 1");
+    local = req.body.matchData.teams[0].matchTotal.statistics[12];
+    visitante = req.body.matchData.teams[1].matchTotal.statistics[12];
+  } else {
+    console.log("Teams[1] is Team 1");
+    local = req.body.matchData.teams[1].matchTotal.statistics[12];
+    visitante = req.body.matchData.teams[0].matchTotal.statistics[12];
+  }
+
+  if (local == visitante) {
+    homeresult = 0.5;
+  } else {
+    if (local > visitante) {
+      homeresult = 1;
+    } else {
+      homeresult = -1;
+    }
+  }
+  console.log(playerlist);
+  console.log(
+    `JSON received. Comparing JSON IP ${req.ip} with valid IP ${config.serverip}`
+  );
+
+  funcRCON.eloDisable(req.ip, playerlist.port, config);
+  console.log("DEBUG PLAYERLIST");
+  console.log(playerlist);
+  if (playerlist.singlekeeper) {
+    await funcEloSK.eloCalculatorSK(homeresult, playerlist, bonus, 6);
+    console.log("Json with SK Received correctly");
+  } else {
+    await funcElo.eloCalculator(homeresult, playerlist, bonus, 6);
+    console.log("Json without SK Received correctly");
+  }
+  res.end(" -> JSON subido con exito");
+  embed = new Discord.MessageEmbed()
+    .setTitle("Matchmaking - Resultado")
+    .setColor("BLUE")
+    .addField(
+      `LOCAL - ${local}`,
+      `${playerlist.Team1.list[0].Name} ${playerlist.Team1.list[1].Name} ${playerlist.Team1.list[2].Name} ${playerlist.Team1.list[3].Name} ${playerlist.Team1.list[4].Name} ${playerlist.Team1.list[5].Name}`
+    )
+    .addField(
+      `VISITANTE - ${visitante}`,
+      `${playerlist.Team2.list[0].Name} ${playerlist.Team2.list[1].Name} ${playerlist.Team2.list[2].Name} ${playerlist.Team2.list[3].Name} ${playerlist.Team2.list[4].Name} ${playerlist.Team2.list[5].Name}`
+    )
+    .addField("ELO Boost", `${bonus}`);
+  client.channels.cache.get("779460129065009172").send({ embeds: [embed] });
+  console.log("ELO Match finished correctly!");
+  delete playerlist[token[1]];
+  await GetFromDB.updateDb("bilarbot", "elomatches", playerlist);
   console.log("Cleaning matchinfo and players");
 
   let isPlaying = [];

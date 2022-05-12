@@ -544,7 +544,8 @@ async function eloReady(interaction, config, matchID, matchPORT) {
     //.addField("Servidor", `steam://connect/200.73.128.202:27014`);
     .addField(
       "Servidor",
-      `steam://connect/${config.serverip}:${matchPORT}/elomatch`
+      `IP Privada. Revisar mensajes privados.`
+      //`steam://connect/${config.serverip}:${matchPORT}/elomatch`
     );
   interaction.followUp({ embeds: [embed] });
   interaction.followUp(

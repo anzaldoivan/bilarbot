@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const package = require("../../utils/signedList.js");
 
 module.exports = {

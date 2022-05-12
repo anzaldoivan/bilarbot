@@ -56,7 +56,7 @@ module.exports = {
     // );
     funcRCON.eloSetup(client.config, playerlist.port, matchID);
     await interaction.followUp(
-      `Servidor configurado correctamente en el servidor steam://connect/${client.config.serverip}:${playerlist.port}/elomatch.`
+      `Servidor configurado correctamente para el partido #${matchID}.`
     );
     return;
   },
